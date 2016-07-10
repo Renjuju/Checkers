@@ -3,6 +3,7 @@ var http = require('http');
 var fs = require('fs');
 var express = require('express')
 var app = express();
+var server = require('http').createServer(app)
 
 function logger(req, res, next) {
     console.log(new Date(), req.method, req.url);
@@ -19,4 +20,7 @@ app.get('/', function(req, res) {
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/views/LoginScreen.html')
 });
-var server = app.listen(3000)
+
+server.listen(3000, function() {
+	console.log('Server listening on localhost:3000')
+})
