@@ -1,4 +1,19 @@
 # Checkers
+
+# Installation
+git clone https://github.com/Renjuju/Checkers.git
+
+Go to the Checkers directory
+```bash
+npm install
+```
+Then start up the server
+```bash
+node server.js
+```
+The site will be up at localhost:3000
+
+# Due Dates
 |Tasks   |Dates   |
 |---|---|
 |~~Formation of Project Teams~~|6/26/16|
