@@ -1,8 +1,9 @@
 # Checkers
 
 # Installation
+```bash
 git clone https://github.com/Renjuju/Checkers.git
-
+```
 Go to the Checkers directory
 ```bash
 npm install
