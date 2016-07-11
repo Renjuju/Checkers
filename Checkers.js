@@ -1,0 +1,1 @@
+	function CheckersController($scope, $log) {

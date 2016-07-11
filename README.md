@@ -9,7 +9,7 @@ npm install
 ```
 Then start up the server
 ```bash
-node server.js
+node start
 ```
 The site will be up at localhost:3000
 
