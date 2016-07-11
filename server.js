@@ -23,9 +23,9 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/views/LoginScreen.html')
 });
 
-server.listen(3000, function() {
+server.listen(3000 || process.env.PORT, function() {
 	console.log('Server listening on localhost:3000')
-})
+});
 
 app.get('/app/controllers/Checkers.js', function(req, res){
   res.sendFile(__dirname + '/app/controllers/Checkers.js');
