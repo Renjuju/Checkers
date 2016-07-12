@@ -1,5 +1,5 @@
 # Checkers
-
+[![Build Status](https://travis-ci.com/Renjuju/Checkers.svg?token=w4e2mxas5XbnReXXPHKx&branch=master)](https://travis-ci.com/Renjuju/Checkers)
 # Installation
 ```bash
 git clone https://github.com/Renjuju/Checkers.git
