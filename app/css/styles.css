@@ -18,3 +18,8 @@ br {
    display: block;
    margin: 50px 0;
 }
+
+.bangers { 
+	font-family: 'Bangers', cursive;
+	font-size: 40px;
+ }
