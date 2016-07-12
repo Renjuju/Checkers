@@ -1,0 +1,73 @@
+<!doctype html >
+<html lang="en" ng-app="checkers">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+    </style>
+    <title>Checkers</title>
+    <link href="/css/styles.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Checkers.js"></script>
+    <link rel="stylesheet" href="styles.css" </head>
+
+    <body ng-controller="CheckersController">
+        <div>
+            <div>
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <a class="navbar-brand" href="#">Checkers</a>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <br/>
+            <div class="col-md-5 col-md-offset-3">
+                <h1>Checkers</h1>
+                <div class="form-group">
+                    <label for="exampleInputName2">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Rick Ross">
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+                <button type="button" class="btn btn-default btn-lg" ng-click='click()'>
+                    <span class="glyphicon glyphicon-triangle" aria-hidden="true"></span> Play
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Rules
+                </button>
+                <br/>
+                <br/>
+            </div>
+            <blockquote style="position:absolute; bottom:0" class="col-md-5 col-md-offset-3">
+                <p>Most riveting game of 2016, created for CS451</p>
+                <footer>Developed by
+                    <cite title="Source Title">Renju, Alec, Daniel, Eddie</cite>
+                </footer>
+            </blockquote>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Rules</h4>
+                    </div>
+                    <div class="modal-body">
+                        Checkers is played by two players. Each player begins the game with 12 colored discs. (Typically, one set of pieces is black and the other red.) The board consists of 64 squares, alternating between 32 dark and 32 light squares. It is positioned so that each player has a light square on the right side corner closest to him or her. Each player places his or her pieces on the 12 dark squares closest to him or her. Black moves first. Players then alternate moves. Moves are allowed only on the dark squares, so pieces always move diagonally. Single pieces are always limited to forward moves (toward the opponent). A piece making a non-capturing move (not involving a jump) may move only one square. A piece making a capturing move (a jump) leaps over one of the opponent's pieces, landing in a straight diagonal line on the other side. Only one piece may be captured in a single jump; however, multiple jumps are allowed on a single turn.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
