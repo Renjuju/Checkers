@@ -26,6 +26,7 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/app/views/Match.html')
 }); 
 
-server.listen(3000 || process.env.PORT, function() {
-	console.log('Server listening on localhost:3000')
+server.listen(80 || process.env.PORT, function() {
+	console.log('Server listening on localhost');
+	console.log('Type localhost on your browser, there\'s no more port!');
 });
