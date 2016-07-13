@@ -14,6 +14,23 @@ node server.js
 ```
 The site will be up at localhost:3000
 
+#EC2 instance
+*What is an ec2 instance?*
+
+For our purposes, it's a machine running Ubuntu14.04 that's always up. 
+Kind of like tux, but we can host our app on it
+
+##Connecting to it
+```bash
+ssh -i checkeraws.pem ubuntu@ec2-52-40-146-219.us-west-2.compute.amazonaws.com
+```
+##Deploying the application once connected
+```bash
+cd Checkers
+git pull --rebase
+forever start server.js
+```
+
 # Due Dates
 |Tasks   |Dates   |
 |---|---|
