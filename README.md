@@ -12,7 +12,7 @@ Then start up the server
 ```bash
 node server.js
 ```
-The site will be up at localhost:3000
+The site will be up at localhost
 
 #EC2 instance
 *What is an ec2 instance?*
