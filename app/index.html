@@ -8,14 +8,10 @@
 
     </style>
     <title>Checkers</title>
-    <link href="/css/styles.css" />
-    <script type="text/javascript" src="/scripts/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="Checkers.js"></script>
-    <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="/scripts/ui-bootstrap.js"></script>
     <script type="text/javascript" src="/scripts/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="playModalController.js"></script>
@@ -25,6 +21,11 @@
     <script type="text/javascript" src="CheckerBoardCtrl.js"></script>
     <link href="/scripts/ui-bootstrap-csp.css" rel="stylesheet" type="text/css" />
     <link href="/styles/chessboard-0.3.0.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" />
+    <link href='/styles/bootstrap.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body ng-controller="CheckersController">
@@ -35,7 +36,9 @@
                 </nav>
             </div> -->
         <div class="hero-unit">
-            <h1 class="navbar-brand bangers" style="text-align: center;">Checkers: The Game</h1>
+        <div class="col-md-2 col-md-offset-5">
+            <h1 class="navbar-brand " style="text-align: center; font-family: 'Lobster', cursive;">Checkers<br/><span class="glyphicon glyphicon-king" aria-hidden="true"></span></h1>
+        </div>
         </div>
         <br/>
         <ng-view></ng-view>
@@ -58,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 </body>
 
 </html>
