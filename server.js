@@ -11,6 +11,9 @@ app.use(express.static(__dirname + '/app/css'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular-ui-bootstrap/dist'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular-route'));
+app.use('/board', express.static(__dirname + '/app/board/js'));
+app.use('/styles', express.static(__dirname + '/app/board/css'));
+
 var server = require('http').createServer(app);
 var path = require('path');
 

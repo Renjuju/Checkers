@@ -1,4 +1,4 @@
-angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibModalInstance, items, $log) {
+angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibModalInstance, items, $log, $location) {
 
   $scope.items = items;
   $scope.selected = {
@@ -14,6 +14,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibMod
   };
 
   $scope.play = function() {
-    $log.info('test')
+    $location.path("/play")
+    $uibModalInstance.dismiss();
   }
 });
