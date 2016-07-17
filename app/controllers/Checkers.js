@@ -40,4 +40,5 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
 
     };
 
+
 }]);
