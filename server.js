@@ -16,6 +16,7 @@ app.use('/styles', express.static(__dirname + '/app/board/css'));
 app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
 app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'))
+app.use('/images', express.static(__dirname + '/app/board/img/chesspieces/wikipedia'));
 var server = require('http').createServer(app);
 var path = require('path');
 
