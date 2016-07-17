@@ -23,3 +23,57 @@ br {
 	font-family: 'Bangers', cursive;
 	font-size: 40px;
  }
+
+ .hero-unit {
+    background-image:url('http://i.imgur.com/pzv1yyY.png');
+    background-size:cover;
+    background-color: #EEEEEE;
+    height:200px;
+    background-blend-mode: luminosity;
+    
+  
+  }
+.hero-unit h1 {
+    color: #FFFFFF;
+    font-size: 60px;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 0;
+}
+.hero-unit h2 {
+    font-size: 25px;
+    color: #FFFFFF;
+   
+}
+
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 155px; /* .push must be the same height as .footer */
+}
+
+.fill{width:100%;height:350px;background-position:center;background-size:cover;
+}
+
+    /* Large desktop */
+    @media (min-width: 1200px) { ... }
+     
+    /* Portrait tablet to landscape and desktop */
+    @media (min-width: 768px) and (max-width: 979px) { ... }
+     
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) { ... }
+     
+    /* Landscape phones and down */
+    @media (max-width: 480px) { ... }
+  

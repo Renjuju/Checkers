@@ -1,10 +1,14 @@
 'use strict';
 
-var Checkers = angular.module('checkers', ['ui.bootstrap','ngRoute']).
-	config(function($routeProvider) {
-		$routeProvider.
-			when("/", {templateUrl:"/views/Landing.html"});
-	});
+var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).
+config(function($routeProvider) {
+    $routeProvider.
+    when("/", { templateUrl: "/views/Landing.html", }).
+    when("/play", {
+        templateUrl: "/views/Game.html",
+        controller: 'CheckerBoardCtrl'
+    });
+});
 
 Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', function($scope, $log, $uibModal) {
     var vm = this;
