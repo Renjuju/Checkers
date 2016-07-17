@@ -6,8 +6,11 @@ var app = express();
 
 console.log(__dirname+'/app/controllers');
 app.use(express.static(__dirname + '/app/controllers'));
-app.use(express.static(__dirname + '/app/views'));
+app.use('/views',express.static(__dirname + '/app/views'));
 app.use(express.static(__dirname + '/app/css'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular-ui-bootstrap/dist'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular-route'));
 var server = require('http').createServer(app);
 var path = require('path');
 
@@ -30,3 +33,5 @@ server.listen(80 || process.env.PORT, function() {
 	console.log('Server listening on localhost');
 	console.log('Type localhost on your browser, there\'s no more port!');
 });
+
+
