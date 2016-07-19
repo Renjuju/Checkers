@@ -6,8 +6,17 @@ var app = express();
 
 console.log(__dirname+'/app/controllers');
 app.use(express.static(__dirname + '/app/controllers'));
-app.use(express.static(__dirname + '/app/views'));
+app.use('/views',express.static(__dirname + '/app/views'));
 app.use(express.static(__dirname + '/app/css'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular-ui-bootstrap/dist'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
+app.use('/scripts', express.static(__dirname + '/node_modules/angular-route'));
+app.use('/board', express.static(__dirname + '/app/board/js'));
+app.use('/styles', express.static(__dirname + '/app/board/css'));
+app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
+app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
+app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'))
+app.use('/images', express.static(__dirname + '/app/board/img/chesspieces/wikipedia'));
 var server = require('http').createServer(app);
 var path = require('path');
 
@@ -27,5 +36,8 @@ app.get('/login', function(req, res) {
 }); 
 
 server.listen(3000 || process.env.PORT, function() {
-	console.log('Server listening on localhost:3000')
+	console.log('Server listening on localhost');
+	console.log('Type localhost on your browser, there\'s no more port!');
 });
+
+
