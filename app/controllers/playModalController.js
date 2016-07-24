@@ -1,9 +1,13 @@
-angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibModalInstance, items, $log, $location, SocketService) {
+angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibModalInstance, $log, $location, SocketService) {
+    $scope.user = 'someone';
+    $scope.users = [];
+    $scope.users.push('Renju');
+    // $scope.users.push('Renjuiew');
+    SocketService.connect($scope.user);
 
-    SocketService.connect();
-    $scope.items = items;
+
     $scope.selected = {
-        item: $scope.items[0]
+        item: $scope.users[0]
     };
 
     $scope.ok = function () {

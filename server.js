@@ -21,6 +21,7 @@ app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'))
 app.use('/images', express.static(__dirname + '/app/board/img/chesspieces/wikipedia'));
 app.use('/scripts', express.static(__dirname + '/node_modules/socket.io-client/'));
+app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validator/dist'));
 app.use(express.static(__dirname + '/app/services'));
 
 connections = [];
