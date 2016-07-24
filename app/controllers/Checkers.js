@@ -13,24 +13,24 @@ config(function($routeProvider) {
 Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', function($scope, $log, $uibModal) {
     var vm = this;
 
-
     $scope.animationsEnabled = true;
     $scope.isCollapsed = false;
 
     // play modal start
-    $scope.items = ['item1', 'item2', 'item3'];
-    $scope.open = function(size) {
-
+    // $scope.items = ['item1', 'item2', 'item3'];
+    $scope.open = function(name) {
+        if(!name) {
+            return;
+        }
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/views/playModal.html',
             controller: 'PlayModalCtrl',
-            size: size,
-            resolve: {
-                items: function() {
-                    return $scope.items;
-                }
-            }
+            // resolve: {
+            //     items: function() {
+            //         return $scope.items;
+            //     }
+            // }
         });
 
         modalInstance.result.then(function(selectedItem) {

@@ -1,11 +1,14 @@
-angular.module('checkers').controller('ForfeitModalCtrl', function ($scope, $uibModalInstance, $log, $location) {
+angular.module('checkers').controller('ForfeitModalCtrl', function ($scope, $uibModalInstance, $log, $location, SocketService) {
 
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 
-  $scope.goHome = function() {
-    $location.path("")
-    $uibModalInstance.dismiss();
-  }
+    $scope.goHome = function () {
+        SocketService.disconnect();
+        $location.path('/');
+        $uibModalInstance.dismiss();
+
+    }
+
 });
