@@ -13,6 +13,7 @@ config(function($routeProvider) {
 Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', function($scope, $log, $uibModal) {
     var vm = this;
 
+
     $scope.animationsEnabled = true;
     $scope.isCollapsed = false;
 
@@ -39,6 +40,7 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
         });
 
     };
+
 
 
 }]);
