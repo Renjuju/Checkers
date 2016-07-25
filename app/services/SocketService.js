@@ -1,13 +1,18 @@
-angular.module('checkers').service('SocketService', function() {
+angular.module('checkers')
+    .service('SocketService', function() {
 
     var socket = io;
+    var users = [];
 
     function connect(user) {
+        if(users.length == 0) {
+            users.push(user);
+        }
         socket = io.connect();
-        socket.emit('send message', 'hello world');
+        socket.emit('send message', user);
         socket.on('new message', function(data) {
-            console.log('message received');
-            console.log('message: ', data);
+            // users = data;
+            $('#userList').append('<div class="well">' + data[data.length-1] + '</div>');
         });
     }
 
@@ -15,9 +20,14 @@ angular.module('checkers').service('SocketService', function() {
         socket.disconnect();
     }
 
+    function getUsers() {
+        return users;
+    }
+
 
     return {
         connect: connect,
-        disconnect: disconnect
+        disconnect: disconnect,
+        getUsers: getUsers
     };
 });

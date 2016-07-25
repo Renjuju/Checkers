@@ -1,10 +1,13 @@
-angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibModalInstance, $log, $location, SocketService) {
-    $scope.user = 'someone';
-    $scope.users = [];
-    $scope.users.push('Renju');
-    // $scope.users.push('Renjuiew');
-    SocketService.connect($scope.user);
+angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService) {
+    SocketService.connect(user);
 
+    $scope.users = SocketService.getUsers();
+
+    $scope.$watch(function () { return SocketService.getUsers()}, function (newVal, oldVal) {
+        if (typeof newVal !== 'undefined') {
+            $scope.users = SocketService.getUsers();
+        }
+    }, true);
 
     $scope.selected = {
         item: $scope.users[0]
@@ -20,7 +23,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, $uibMod
     };
 
     $scope.play = function () {
-        $location.path("/play")
+        $location.path("/play");
         $uibModalInstance.dismiss();
     }
 });

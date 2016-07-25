@@ -3,10 +3,10 @@
             <h3 class="modal-title">Matching</h3>
         </div>
         <div class="modal-body">
-            <ul>
-                <li ng-repeat="user in users">
-                    <a href="#" ng-click="$event.preventDefault(); selected.users = user">{{ user }}</a>
-                </li>
+            <ul id="userList">
+                <!--<li ng-repeat="user in users track by $index">-->
+                    <!--{{user}}-->
+                <!--</li>-->
             </ul>
             <!--Selected: <b>{{ selected.item }}</b>-->
         </div>

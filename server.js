@@ -25,7 +25,7 @@ app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validato
 app.use(express.static(__dirname + '/app/services'));
 
 connections = [];
-users = []
+users = [];
 
 //socket.io
 io.sockets.on('connection', function(socket) {
@@ -35,11 +35,13 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function(data) {
         connections.splice(connections.indexOf((socket)), 1);
         console.log('Disconnected: %s sockets connected', connections.length);
-    })
+        users.splice(users.indexOf(socket), 1);
+    });
 
     socket.on('send message', function(data) {
-        io.sockets.emit('new message', {msg: data});
-    })
+        users.push(data);
+        io.sockets.emit('new message', users);
+    });
 });
 
 //end of socket.io
