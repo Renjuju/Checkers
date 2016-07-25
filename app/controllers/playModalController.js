@@ -9,10 +9,6 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         }
     }, true);
 
-    $scope.selected = {
-        item: $scope.users[0]
-    };
-
     $scope.ok = function () {
         $uibModalInstance.close($scope.selected.item);
     };
@@ -23,7 +19,14 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
     };
 
     $scope.play = function () {
-        $location.path("/play");
+        selected = $('input[name=radio]:checked').val();
+        $scope.selected = { item: selected };
+        SocketService.sendRequest($scope.selected.item);
+        //$location.path("/play");
+        //$uibModalInstance.dismiss();
+    };
+
+    $scope.close = function () {
         $uibModalInstance.dismiss();
-    }
+    };
 });

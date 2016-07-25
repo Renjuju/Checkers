@@ -21,11 +21,14 @@ app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'))
 app.use('/images', express.static(__dirname + '/app/board/img/chesspieces/wikipedia'));
 app.use('/scripts', express.static(__dirname + '/node_modules/socket.io-client/'));
+app.use('/scripts', express.static(__dirname + '/node_modules/socket.io/node_modules/socket.io-client/'));
 app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validator/dist'));
 app.use(express.static(__dirname + '/app/services'));
 
 connections = [];
 users = [];
+
+hash = {};
 
 //socket.io
 io.sockets.on('connection', function(socket) {
@@ -39,8 +42,24 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('send message', function(data) {
+        hash[data] = socket.id;
         users.push(data);
         io.sockets.emit('new message', users);
+    });
+
+    socket.on('request game', function(requester, data) {
+        opponent = hash[data];
+        io.to(opponent).emit('new game request', requester);
+    });
+
+    socket.on('game accepted', function(responder, data) {
+        opponent = hash[data];
+        io.to(opponent).emit('game request response', responder, 'accepted');
+    });
+
+    socket.on('game rejected', function(responder, data) {
+        opponent = hash[data];
+        io.to(opponent).emit('game request response', responder, 'rejected');
     });
 });
 
