@@ -17,7 +17,6 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
     $scope.isCollapsed = false;
 
     // play modal start
-    // $scope.items = ['item1', 'item2', 'item3'];
     $scope.open = function(name) {
         if(!name) {
             return;
@@ -26,11 +25,11 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
             animation: true,
             templateUrl: '/views/playModal.html',
             controller: 'PlayModalCtrl',
-            // resolve: {
-            //     items: function() {
-            //         return $scope.items;
-            //     }
-            // }
+            resolve: {
+                user: function() {
+                    return name;
+                }
+            }
         });
 
         modalInstance.result.then(function(selectedItem) {
