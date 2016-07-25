@@ -49,8 +49,8 @@ Click that and merge the code in from your branch to the master branch
 |---|---|
 |~~Formation of Project Teams~~|6/26/16|
 |~~Requirements Document [Draft]~~|7/10/16|
-|Requirements Document [Baselined]|7/24/16|
-|Design Document|7/24/16|
-|Team Evaluation Form [Midterm]|7/24/16|
+|~~Requirements Document [Baselined~~]|7/24/16|
+|~~Design Document~~|7/24/16|
+|~~Team Evaluation Form [Midterm]~~|7/24/16|
 |Test Case Document|8/21/16   |
 |Final Project Submission & Team Eval|8/21/16|
