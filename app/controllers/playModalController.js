@@ -12,7 +12,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         if (r == true) {
             SocketService.accept(requester);
             $scope.close();
-            $location.path("/play");
+            $location.path("/play/white");
         } else {
             SocketService.reject(requester);
         }
@@ -21,7 +21,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
     SocketService.getSocket().on('game request response', function (responder, answer) {
         if (answer == 'accepted') {
             $scope.close();
-            $location.path("/play");
+            $location.path("/play/black");
         }
         else {
             alert(responder + ' has rejected your request to play a game.');
