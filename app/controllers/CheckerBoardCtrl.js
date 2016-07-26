@@ -1,11 +1,20 @@
 'use strict';
 
-angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal) {
+angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, CheckerBoardService) {
+
+    var onDrop = function(source, target, piece, newPos, oldPos, orientation){ 
+        if(!CheckerBoardService.validMove(piece, source, target)){
+            return 'snapback';
+        }
+       // updatecfg(source, target, piece);
+    };
+
     // initialize board
 
     var cfg = {
         draggable: true,
         pieceTheme: '/images/{piece}.png',
+        onDrop: onDrop,
         position: {
             a1: 'wP',
             c1: 'wP',
@@ -34,6 +43,12 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             h6: 'bP',
         }
     };
+
+    function updatecfg(origPos, newPos, piece){
+   
+    };
+    CheckerBoardService.populateBoard(cfg.position);
+   
 
     $scope.board = ChessBoard('board', cfg);
     $(window).resize($scope.board.resize);
