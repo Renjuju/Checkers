@@ -1,13 +1,13 @@
 angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService) {
-'use strict';
+    'use strict';
     $scope.users = [];
 
-    SocketService.getSocket().on('new message', function(data) {
+    SocketService.getSocket().on('new message', function (data) {
         $scope.users = data;
         $scope.$apply();
     });
 
-    SocketService.getSocket().on('new game request', function(requester) {
+    SocketService.getSocket().on('new game request', function (requester) {
         var r = confirm(requester + ' has requested to play a game with you!');
         if (r == true) {
             SocketService.accept(requester);
@@ -18,7 +18,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         }
     });
 
-    SocketService.getSocket().on('game request response', function(responder, answer) {
+    SocketService.getSocket().on('game request response', function (responder, answer) {
         if (answer == 'accepted') {
             $scope.close();
             $location.path("/play");
@@ -28,7 +28,9 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         }
     })
 
-    $scope.$watch(function () { return SocketService.getUsers()}, function (newVal, oldVal) {
+    $scope.$watch(function () {
+        return SocketService.getUsers()
+    }, function (newVal, oldVal) {
         if (typeof newVal !== 'undefined') {
             $scope.users = SocketService.getUsers();
         }
