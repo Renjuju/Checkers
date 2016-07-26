@@ -19,8 +19,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		});
 	};
 
-	function updateUIBoard(){
-
+	function getVirtualBoard(){
+		return board;
 	}
 
 	function validMove(piece, oldPos, newPos){
@@ -34,24 +34,17 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		var newY = parseInt(newCoord[1]) - 1;
 
 		if(piece == 'wP'){
-			//move forward
-			if((newY - oldY) != 1){
+			if(!positiveMove(oldX, oldY, newX, newY)){
 				return false;
-			}
-			//move diagonal
-			if((newX - oldX) != 1 && (newX - oldX) != -1){
-				return false;
-			}
+			}			
 		} else if (piece == 'bP'){
-			//move forward
-			if((newY - oldY) != -1){
-				return false;
-			}
-			//move diagonal
-			if((newX - oldX) != 1 && (newX - oldX) != -1){
+			if(!negativeMove(oldX, oldY, newX, newY)){
 				return false;
 			}
 		}
+		//update the board with the new location of the pieces
+		board[oldX][oldY] = "";
+		board[newX][newY] = piece;
 		//update the board with the new coordinates
 		return true;
 	}
@@ -59,17 +52,24 @@ angular.module('checkers').service('CheckerBoardService', function(){
 /* Kings can move forward and backward
 */
 	//forward move for whitepiece
-	function positiveMove(){
-
+	function positiveMove(oldX, oldY, newX, newY){
+		if((newY - oldY) != 1 || ((newX - oldX) != 1 && (newX - oldX) != -1)){
+				return false;
+		}
+		return true;
 	}
 
 	//forward move for blackpiece
-	function negativeMove(){
-
+	function negativeMove(oldX, oldY, newX, newY){
+		if((newY - oldY) != -1 || ((newX - oldX) != 1 && (newX - oldX) != -1)){
+				return false;
+		}
+		return true;
 	}
 
 	return{
 		populateBoard:populateBoard,
+		getVirtualBoard:getVirtualBoard,
 		validMove:validMove
 	}
 });
