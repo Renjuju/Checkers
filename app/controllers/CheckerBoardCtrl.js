@@ -6,7 +6,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
-       // updatecfg(source, target, piece);
+       updatecfg();
     };
 
     // initialize board
@@ -44,8 +44,21 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         }
     };
 
-    function updatecfg(origPos, newPos, piece){
-   
+    function updatecfg(){
+        //clear out the current position object
+        cfg.position = {};
+        //repopulated the position object with the values found in the 2d array
+        var virtualBoard = CheckerBoardService.getVirtualBoard();
+        for(var row = 0; row < virtualBoard.length; row++){
+            for(var col = 0; col < virtualBoard.length; col++){
+                if(virtualBoard[row][col] != ""){
+                    var chr = String.fromCharCode(97 + row);
+                    var boardPosition = chr.concat(col+1);
+                    cfg.position[boardPosition] = virtualBoard[row][col];
+                }
+            }
+        }
+        $scope.board = ChessBoard('board', cfg); 
     };
     CheckerBoardService.populateBoard(cfg.position);
    
