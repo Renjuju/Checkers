@@ -1,18 +1,13 @@
 <div ng-controller="CheckersController">
-        <div class="modal-header">
-            <h3 class="modal-title">Matching</h3>
-        </div>
         <div class="modal-body">
-            <ul id="userList" class="checkbox">
-                <!--<li ng-repeat="user in users track by $index">-->
-                    <!--{{user}}-->
-                <!--</li>-->
-            </ul>
-            <!--Selected: <b>{{ selected.item }}</b>-->
+            <div class="list-group">
+                <a class="list-group-item active" style="font-family: 'Lobster', cursive;">
+                    <h3>Select A Player</h3>
+                </a>
+                <button type="button" ng-click="play($index)" ng-repeat="user in users track by $index" class="list-group-item">{{user}}</button>
+            </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="play()">Fight!</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
         </div>
 </div>
-

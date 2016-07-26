@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/app/services'));
 connections = [];
 users = [];
 
-hash = {};
+user = {};
 
 //socket.io
 io.sockets.on('connection', function(socket) {
@@ -42,23 +42,23 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('send message', function(data) {
-        hash[data] = socket.id;
+        user[data] = socket.id;
         users.push(data);
         io.sockets.emit('new message', users);
     });
 
     socket.on('request game', function(requester, data) {
-        opponent = hash[data];
+        opponent = user[data];
         io.to(opponent).emit('new game request', requester);
     });
 
     socket.on('game accepted', function(responder, data) {
-        opponent = hash[data];
+        opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'accepted');
     });
 
     socket.on('game rejected', function(responder, data) {
-        opponent = hash[data];
+        opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'rejected');
     });
 });

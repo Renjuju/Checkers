@@ -10,7 +10,7 @@ config(function($routeProvider) {
     });
 });
 
-Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', function($scope, $log, $uibModal) {
+Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', function($scope, $log, $uibModal, SocketService) {
     var vm = this;
 
     $scope.animationsEnabled = true;
@@ -18,6 +18,7 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
 
     // play modal start
     $scope.open = function(name) {
+        SocketService.connect(name);
         if(!name) {
             return;
         }
@@ -39,7 +40,4 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', functi
         });
 
     };
-
-
-
 }]);

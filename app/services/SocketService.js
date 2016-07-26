@@ -1,45 +1,23 @@
+"use strict";
 angular.module('checkers')
     .service('SocketService', function($location) {
 
-    var socket = io;
+    var socket;
     var users = [];
     var me;
 
+     function getSocket() {
+         return socket;
+     }
+
     function connect(user) {
+        socket = io.connect();
         if(users.length == 0) {
             users.push(user);
         }
         me = user;
-        socket = io.connect();
+        // socket = io.connect();
         socket.emit('send message', user);
-        socket.on('new message', function(data) {
-            
-            // users = data;
-            $('#userList').append('<label><input type="radio" name="radio" value="' + data[data.length-1] + '"/> ' + data[data.length-1] + '</label></br>')
-            //$('#userList').append('<div class="well">' + data[data.length-1] + '</div>');
-        });
-
-        socket.on('new game request', function(requester) {
-            var r = confirm(requester + ' has requested to play a game with you!');
-            if (r == true) {
-                accept(requester);
-                angular.element(document.querySelector('#modal')).modal('hide');
-                $location.path("/play");
-            } else {
-                reject(requester);
-            }
-        });
-
-        socket.on('game request response', function(responder, answer) {
-            if (answer == 'accepted') {
-                angular.element(document.querySelector('#modal')).modal('hide');
-                $location.path("/play");
-            }
-            else {
-                alert(responder + ' has rejected your request to play a game.');
-            }
-
-        })
     }
 
     function accept(user) {
@@ -67,6 +45,8 @@ angular.module('checkers')
         connect: connect,
         disconnect: disconnect,
         getUsers: getUsers,
-        sendRequest: sendRequest
+        sendRequest: sendRequest,
+        getSocket: getSocket,
+        accept: accept
     };
 });
