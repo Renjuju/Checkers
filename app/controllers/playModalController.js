@@ -26,15 +26,7 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         else {
             alert(responder + ' has rejected your request to play a game.');
         }
-    })
-
-    $scope.$watch(function () {
-        return SocketService.getUsers()
-    }, function (newVal, oldVal) {
-        if (typeof newVal !== 'undefined') {
-            $scope.users = SocketService.getUsers();
-        }
-    }, true);
+    });
 
     $scope.ok = function () {
         $uibModalInstance.close($scope.selected.item);
