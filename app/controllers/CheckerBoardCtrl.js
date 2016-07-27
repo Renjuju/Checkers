@@ -1,6 +1,12 @@
 'use strict';
 
-angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, CheckerBoardService) {
+angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, SocketService, CheckerBoardService) {
+
+    SocketService.getSocket().on('opponent forfeit', function(data) {
+        alert(data + ' has forfeited the game! Press OK to go back to the main menu.');
+        $location.path('/');
+        SocketService.disconnect();
+    });
 
     var onDrop = function(source, target, piece, newPos, oldPos, orientation){ 
         if(!CheckerBoardService.validMove(piece, source, target)){

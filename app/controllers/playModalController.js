@@ -1,4 +1,4 @@
-angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService) {
+angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService, CheckerBoardService) {
     'use strict';
     $scope.users = [];
 
@@ -12,6 +12,10 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
         if (r == true) {
             SocketService.accept(requester);
             $scope.close();
+            CheckerBoardService.game = {
+                me: user,
+                opponent: requester
+            };
             $location.path("/play/white");
         } else {
             SocketService.reject(requester);
@@ -21,6 +25,10 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
     SocketService.getSocket().on('game request response', function (responder, answer) {
         if (answer == 'accepted') {
             $scope.close();
+            CheckerBoardService.game = {
+                me: user,
+                opponent: responder
+            };
             $location.path("/play/black");
         }
         else {
