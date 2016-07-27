@@ -40,6 +40,10 @@ angular.module('checkers')
         return users;
     }
 
+    function forfeit(opponent) {
+        socket.emit('player forfeit', me, opponent);
+    }
+
 
     return {
         connect: connect,
@@ -47,6 +51,7 @@ angular.module('checkers')
         getUsers: getUsers,
         sendRequest: sendRequest,
         getSocket: getSocket,
-        accept: accept
+        accept: accept,
+        forfeit: forfeit
     };
 });

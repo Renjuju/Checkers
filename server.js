@@ -61,6 +61,11 @@ io.sockets.on('connection', function (socket) {
         opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'rejected');
     });
+
+    socket.on('player forfeit', function(forfeiter, data) {
+        opponent = user[data];
+        io.to(opponent).emit('opponent forfeit', forfeiter);
+    });
 });
 
 //end of socket.io
