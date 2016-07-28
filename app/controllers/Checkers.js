@@ -1,46 +1,48 @@
 'use strict';
 
-var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).
-config(function($routeProvider) {
-    $routeProvider.
-    when("/", { templateUrl: "/views/Landing.html", }).
-    when("/play", {
+var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(function ($routeProvider) {
+    $routeProvider.when("/", {templateUrl: "/views/Landing.html",}).when("/play/black", {
         templateUrl: "/views/Game.html",
-        controller: 'CheckerBoardCtrl'
+        controller: 'CheckerBoardCtrl',
+        orientation: 'black'
+    }).
+    when ("/play/white", {
+        templateUrl: "/views/Game.html",
+        controller: 'CheckerBoardCtrl',
+        orientation: 'white'
     });
 });
 
-Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', function($scope, $log, $uibModal) {
+Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', function ($scope, $log, $uibModal, SocketService) {
     var vm = this;
 
     $scope.animationsEnabled = true;
     $scope.isCollapsed = false;
 
     // play modal start
-    // $scope.items = ['item1', 'item2', 'item3'];
-    $scope.open = function(name) {
-        if(!name) {
+    $scope.open = function (name) {
+        if (!name) {
             return;
         }
+
+        SocketService.connect(name);
+
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/views/playModal.html',
             controller: 'PlayModalCtrl',
-            // resolve: {
-            //     items: function() {
-            //         return $scope.items;
-            //     }
-            // }
+            resolve: {
+                user: function () {
+                    return name;
+                }
+            }
         });
 
-        modalInstance.result.then(function(selectedItem) {
+        modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
-        }, function() {
+        }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
 
     };
-
-
-
 }]);
