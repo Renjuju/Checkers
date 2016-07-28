@@ -9,12 +9,16 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
        updatecfg();
     };
 
+    var onChange = function(oldPos, newPos) {
+        console.log('change');    
+    };
     // initialize board
 
     var cfg = {
         draggable: true,
         pieceTheme: '/images/{piece}.png',
         onDrop: onDrop,
+        onChange: onChange,
         position: {
             a1: 'wP',
             c1: 'wP',
@@ -46,6 +50,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
 
     function updatecfg(){
         //clear out the current position object
+        var oldCfgPos = cfg.position;
         cfg.position = {};
         //repopulated the position object with the values found in the 2d array
         var virtualBoard = CheckerBoardService.getVirtualBoard();
@@ -58,8 +63,11 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
                 }
             }
         }
-        $scope.board = ChessBoard('board', cfg); 
+        onChange(oldCfgPos, cfg.position);
+        
+        $scope.board = ChessBoard('board', cfg);
     };
+
     CheckerBoardService.populateBoard(cfg.position);
    
 
