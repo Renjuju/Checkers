@@ -1,8 +1,14 @@
 'use strict';
 
-angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, CheckerBoardService) {
+angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, SocketService, CheckerBoardService) {
 
-    var onDrop = function(source, target, piece, newPos, oldPos, orientation){ 
+    SocketService.getSocket().on('opponent forfeit', function(data) {
+        alert(data + ' has forfeited the game! Press OK to go back to the main menu.');
+        $location.path('/');
+        SocketService.disconnect();
+    });
+
+    var onDrop = function(source, target, piece, newPos, oldPos, orientation){
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
@@ -10,7 +16,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
     };
 
     var onChange = function(oldPos, newPos) {
-        console.log('change');    
+        console.log('change');
     };
     // initialize board
 
@@ -19,6 +25,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         pieceTheme: '/images/{piece}.png',
         onDrop: onDrop,
         onChange: onChange,
+        orientation: $route.current.$$route.orientation,
         position: {
             a1: 'wP',
             c1: 'wP',
@@ -64,12 +71,12 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             }
         }
         onChange(oldCfgPos, cfg.position);
-        
+
         $scope.board = ChessBoard('board', cfg);
     };
 
     CheckerBoardService.populateBoard(cfg.position);
-   
+
 
     $scope.board = ChessBoard('board', cfg);
     $(window).resize($scope.board.resize);

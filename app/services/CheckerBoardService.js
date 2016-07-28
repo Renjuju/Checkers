@@ -2,6 +2,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 
 	var board = new Array(8);
 
+	var game;
+
 	for(var i = 0; i < board.length; i++){
 		board[i] = new Array(8);
 		for(var j = 0; j < board[i].length; j++){
