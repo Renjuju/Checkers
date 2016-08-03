@@ -8,11 +8,17 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         SocketService.disconnect();
     });
 
+    SocketService.getSocket().on('opponent move', function(data) {
+        CheckerBoardService.setVirtualBoard(data);
+        updatecfg(data);
+    });
+
     var onDrop = function(source, target, piece, newPos, oldPos, orientation){
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
        updateLocalCfg();
+       SocketService.updateBoard(CheckerBoardService.getVirtualBoard(), CheckerBoardService.game.opponent);
     };
 
     var onChange = function(oldPos, newPos) {

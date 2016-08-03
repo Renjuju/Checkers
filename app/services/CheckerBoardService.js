@@ -21,6 +21,10 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		});
 	};
 
+	function setVirtualBoard(data) {
+		board = data;
+	}
+
 	function getVirtualBoard(){
 		return board;
 	}
@@ -185,6 +189,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 	return{
 		populateBoard:populateBoard,
 		getVirtualBoard:getVirtualBoard,
-		validMove:validMove
+		validMove:validMove,
+		setVirtualBoard: setVirtualBoard
 	}
 });
