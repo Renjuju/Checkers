@@ -14,7 +14,9 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
             $scope.close();
             CheckerBoardService.game = {
                 me: user,
-                opponent: requester
+                opponent: requester,
+                color: 'white',
+                turn: 'opponent'
             };
             $location.path("/play/white");
         } else {
@@ -27,7 +29,9 @@ angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $
             $scope.close();
             CheckerBoardService.game = {
                 me: user,
-                opponent: responder
+                opponent: responder,
+                color: 'black',
+                turn: 'me'
             };
             $location.path("/play/black");
         }

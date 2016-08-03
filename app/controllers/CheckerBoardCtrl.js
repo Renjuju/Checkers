@@ -2,6 +2,13 @@
 
 angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, SocketService, CheckerBoardService) {
 
+    if (CheckerBoardService.game.turn == 'me') {
+        document.getElementById("Turn").innerHTML = "YOUR TURN";
+    }
+    else {
+        document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
+    }
+
     SocketService.getSocket().on('opponent forfeit', function(data) {
         alert(data + ' has forfeited the game! Press OK to go back to the main menu.');
         $location.path('/');
@@ -11,26 +18,46 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
     SocketService.getSocket().on('opponent move', function(data) {
         CheckerBoardService.setVirtualBoard(data);
         updatecfg(data);
+        CheckerBoardService.game.turn = 'me';
+        document.getElementById("Turn").innerHTML = "YOUR TURN";
     });
+
+    var onDragStart = function(source, piece, orientation) {
+        if (CheckerBoardService.game.turn == 'me') {
+            if(CheckerBoardService.game.color == 'black') {
+                if (piece.search(/^bP/) === -1) {
+                    return false;
+                }
+            }
+            else if (CheckerBoardService.game.color == 'white') {
+                if (piece.search(/^wP/) === -1) {
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        
+    };
 
     var onDrop = function(source, target, piece, newPos, oldPos, orientation){
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
        updateLocalCfg();
+       CheckerBoardService.game.turn = 'opponent';
        SocketService.updateBoard(CheckerBoardService.getVirtualBoard(), CheckerBoardService.game.opponent);
+       document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
     };
 
-    var onChange = function(oldPos, newPos) {
-        console.log('change');
-    };
     // initialize board
 
     var cfg = {
         draggable: true,
         pieceTheme: '/images/{piece}.png',
+        onDragStart: onDragStart,
         onDrop: onDrop,
-        onChange: onChange,
         orientation: $route.current.$$route.orientation,
         position: {
             a1: 'wP',
@@ -80,7 +107,6 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
                 }
             }
         }
-        onChange(oldCfgPos, cfg.position);
 
         $scope.board = ChessBoard('board', cfg);
     };
