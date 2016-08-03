@@ -12,7 +12,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
-       updatecfg();
+       updateLocalCfg();
     };
 
     var onChange = function(oldPos, newPos) {
@@ -55,12 +55,16 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         }
     };
 
-    function updatecfg(){
+    function updateLocalCfg(){
+        var virtualBoard = CheckerBoardService.getVirtualBoard();
+        updatecfg(virtualBoard);
+    }
+    function updatecfg(virtualBoard){
         //clear out the current position object
         var oldCfgPos = cfg.position;
         cfg.position = {};
         //repopulated the position object with the values found in the 2d array
-        var virtualBoard = CheckerBoardService.getVirtualBoard();
+        
         for(var row = 0; row < virtualBoard.length; row++){
             for(var col = 0; col < virtualBoard.length; col++){
                 if(virtualBoard[row][col] != ""){
