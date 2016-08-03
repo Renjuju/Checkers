@@ -14,12 +14,6 @@ node server.js
 ```
 The site will be up at localhost
 
-##Deploying the application once connected
-```bash
-cd Checkers
-git pull --rebase
-forever start server.js
-```
 #Using Git (Avoid pushing to master)
 Let's all not directly push to master to avoid overwriting someone elses code and messy merge conflicts. Instead
 ```bash
