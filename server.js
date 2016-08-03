@@ -66,6 +66,11 @@ io.sockets.on('connection', function (socket) {
         opponent = user[data];
         io.to(opponent).emit('opponent forfeit', forfeiter);
     });
+
+    socket.on('player move', function(board, data) {
+        opponent = user[data];
+        io.to(opponent).emit('opponent move', board);
+    });
 });
 
 //end of socket.io

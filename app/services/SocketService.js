@@ -44,6 +44,10 @@ angular.module('checkers')
         socket.emit('player forfeit', me, opponent);
     }
 
+    function updateBoard(board, opponent) {
+        socket.emit('player move', board, opponent);
+    }
+
 
     return {
         connect: connect,
@@ -52,6 +56,7 @@ angular.module('checkers')
         sendRequest: sendRequest,
         getSocket: getSocket,
         accept: accept,
-        forfeit: forfeit
+        forfeit: forfeit,
+        updateBoard: updateBoard
     };
 });
