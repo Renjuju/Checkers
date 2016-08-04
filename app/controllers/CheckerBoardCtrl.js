@@ -25,12 +25,12 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
     var onDragStart = function(source, piece, orientation) {
         if (CheckerBoardService.game.turn == 'me') {
             if(CheckerBoardService.game.color == 'black') {
-                if (piece.search(/^bP/) === -1) {
+                if (piece.search(/^bP/) === -1 && piece.search(/^bK/) === -1) {
                     return false;
                 }
             }
             else if (CheckerBoardService.game.color == 'white') {
-                if (piece.search(/^wP/) === -1) {
+                if (piece.search(/^wP/) === -1 && piece.search(/^wK/) === -1) {
                     return false;
                 }
             }
