@@ -42,7 +42,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		var newY = parseInt(newCoord[1]) - 1;
 
 		if(piece == 'wP'){
-			if(positiveJump(oldX, oldY, newX, newY)){
+			if(positiveJump(piece, oldX, oldY, newX, newY)){
 				bool = true;	
 			}
 			else if(positiveMove(oldX, oldY, newX, newY)){
@@ -51,17 +51,17 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		} else if (piece == 'bP'){
 			if(negativeMove(oldX, oldY, newX, newY)){
 				bool = true;
-			} else if(negativeJump(oldX, oldY, newX, newY)){
+			} else if(negativeJump(piece, oldX, oldY, newX, newY)){
 				bool = true;
 			}
 		} else if(piece == 'wK' || piece == 'bK'){
-			if(positiveJump(oldX, oldY, newX, newY)){
+			if(positiveJump(piece, oldX, oldY, newX, newY)){
 				bool = true;	
 			} else if(positiveMove(oldX, oldY, newX, newY)){
 				bool = true;
 			} else if(negativeMove(oldX, oldY, newX, newY)){
 				bool = true;
-			} else if(negativeJump(oldX, oldY, newX, newY)){
+			} else if(negativeJump(piece, oldX, oldY, newX, newY)){
 				bool = true;
 			}			
 		}
@@ -69,8 +69,9 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		if(bool){
 			board[oldX][oldY] = "";
 			board[newX][newY] = piece;
+			kingMe(piece, newX, newY);
 		}
-		kingMe(piece, newX, newY);
+		
 		//update the board with the new coordinates
 		return bool;
 	}
@@ -103,8 +104,9 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		return bool;
 	}
 
-	function positiveJump(oldX, oldY, newX, newY){
+	function positiveJump(piece, oldX, oldY, newX, newY){
 		var bool = true;
+		var pieceType = piece.split("");
 		/*Check that the user moved the piece 2 rows up and 2 columns away 
 		  from the orginal position
 		*/
@@ -119,7 +121,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		//Check that there is a piece in between the jump so that the jump is valid
 		//user jumped to the right
 		else if(newX > oldX){
-			if(board[oldX+1][oldY+1] == ""){
+			if(board[oldX+1][oldY+1] == "" || board[oldX+1][oldY+1].includes(pieceType[0])){
 				bool = false;
 			} else {
 				//destroy the piece
@@ -127,7 +129,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			}
 			//the user jumped to the left
 		} else if(newX < oldX){
-			if(board[oldX-1][oldY+1] == ""){
+			if(board[oldX-1][oldY+1] == "" || board[oldX-1][oldY+1].includes(pieceType[0])){
 				bool = false;
 			} else {
 				//destroy the piece
@@ -140,8 +142,9 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		return bool;
 	}
 
-	function negativeJump(oldX, oldY, newX, newY){
+	function negativeJump(piece, oldX, oldY, newX, newY){
 		var bool = true;
+		var pieceType = piece.split("");
 		/*Check that the user moved the piece 2 rows down and 2 columns away 
 		  from the orginal position
 		*/
@@ -156,7 +159,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		//Check that there is a piece in between the jump so that the jump is valid
 		//user jumped to the right
 		else if(newX > oldX){
-			if(board[oldX+1][oldY-1] == ""){
+			if(board[oldX+1][oldY-1] == "" || board[oldX+1][oldY-1].includes(pieceType[0])){
 				bool = false;
 			} else {
 				//destroy the piece
@@ -164,7 +167,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			}
 			//the user jumped to the left
 		} else if(newX < oldX){
-			if(board[oldX-1][oldY-1] == ""){
+			if(board[oldX-1][oldY-1] == "" || board[oldX-1][oldY-1].includes(pieceType[0])){
 				bool = false;
 			} else {
 				//destroy the piece
