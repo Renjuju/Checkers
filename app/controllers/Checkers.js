@@ -13,12 +13,20 @@ var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(fu
     });
 });
 
-Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', function ($scope, $log, $uibModal, SocketService) {
+Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', '$http', function ($scope, $log, $uibModal, SocketService, $http) {
     var vm = this;
 
     $scope.animationsEnabled = true;
     $scope.isCollapsed = false;
 
+    $http({
+        method: 'GET',
+        url: '/getAnalytics'
+    }).then(function successCallback(response) {
+        $scope.gamesPlayed = response.data.total_rows;
+    }, function errorCallback(response) {
+
+    });
     // play modal start
     $scope.open = function (name) {
         if (!name) {

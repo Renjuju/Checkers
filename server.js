@@ -1,13 +1,21 @@
 // Module dependencies.
-var http = require('http');
-var fs = require('fs');
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var path = require('path');
-var io = require('socket.io').listen(server);
+const fs = require('fs');
+const http = require('http');
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const path = require('path');
+const io = require('socket.io').listen(server);
+const winston = require('winston');
+const winstonCouch = require('winston-couchdb').Couchdb;
+const nano = require('nano')('http://ec2-52-40-146-219.us-west-2.compute.amazonaws.com:5984').use('winston');
 
-console.log(__dirname + '/app/controllers');
+winston.add(winstonCouch, {
+    host: 'ec2-52-40-146-219.us-west-2.compute.amazonaws.com',
+    port: 5984,
+    level: 'info'
+});
+
 app.use(express.static(__dirname + '/app/controllers'));
 app.use('/views', express.static(__dirname + '/app/views'));
 app.use(express.static(__dirname + '/app/css'));
@@ -26,8 +34,8 @@ app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validato
 app.use(express.static(__dirname + '/app/services'));
 
 connections = [];
-users = [];
 
+users = [];
 user = {};
 
 //socket.io
@@ -53,6 +61,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('game accepted', function (responder, data) {
+        winston.info({player: data});
         opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'accepted');
     });
@@ -74,20 +83,20 @@ io.sockets.on('connection', function (socket) {
 });
 
 //end of socket.io
-
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/app/index.html')
 });
 
-function logger(req, res, next) {
-    console.log(new Date(), req.method, req.url);
-    next();
-}
-
-app.use(logger);
-
 app.get('/login', function (req, res) {
     res.sendFile(__dirname + '/app/views/Match.html')
+});
+
+app.get('/getAnalytics', function (req,res) {
+    nano.view('Logs', 'byTimestamp', function(err, body) {
+        const repsonse = JSON.stringify(body, null, 2);
+        res.set('Content-Type', 'application/javascript');
+        res.send(repsonse);
+    });
 });
 
 server.listen(3000 || process.env.PORT, function () {
