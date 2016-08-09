@@ -28,9 +28,15 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
                 if (piece.search(/^bP/) === -1 && piece.search(/^bK/) === -1) {
                     return false;
                 }
+                if(CheckerBoardService.checkForJumps(piece, source)){
+                    return false;
+                }
             }
             else if (CheckerBoardService.game.color == 'white') {
                 if (piece.search(/^wP/) === -1 && piece.search(/^wK/) === -1) {
+                    return false;
+                }
+                if(CheckerBoardService.checkForJumps(piece, source)){
                     return false;
                 }
             }
