@@ -189,10 +189,119 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			}
 		}
 	}
+
+
+	//return true if there is a jump available and the selected piece is not a jumpable piece
+	function checkForJumps(color, boardLocation){
+		//used for getting first character of the color for comparison of piece objects
+		var colorSplit = color.split("");
+		//used for getting board locations to integer values
+		var location = boardLocation.split("");
+		//coords of the dragstart piece
+		var x = location[0].charCodeAt(0) - 97;
+		var y = parseInt(location[1]) - 1;
+		var bool = false;
+		var futureRowPositive;
+		var futureRowNegative;
+		var futureColPositive;
+		var futureColNegative;
+
+		for(var row = 0; row < board.length; row++){
+			for(var col = 0; col < board[row].length; col++){
+				//Get piece of the same color
+				if(board[row][col].includes(colorSplit[0])){
+					futureRowPositive = row+2;
+					futureRowNegative = row-2;
+					futureColPositive = col+2;
+					futureColNegative = col-2;
+					//FORWARD MOVE
+					//Make sure rows do not go out array dimensions
+					if(futureRowPositive > 0 && futureRowPositive < board.length){
+						//Make sure cols do not go out of array dimensions
+						if(futureColPositive < board[row].length){
+							//check that there is ample jumping space
+							if(board[futureRowPositive][futureColPositive] == ""){
+								//check that there is a piece in the spot and that it is the opponents
+								if(!board[futureRowPositive-1][futureColPositive-1].includes(colorSplit[0]) && board[futureRowPositive-1][futureColPositive-1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										return bool;
+									} else {
+										bool = true;
+									}
+									
+								} 
+							} //Make sure cols do not go out of array dimensions negatively 
+						}
+						if(futureColNegative >= 0){
+							//check to make sure there is ample jumping space
+							if(board[futureRowPositive][futureColNegative] == ""){
+								//check that there is a piece between of opposite color
+								if(!board[futureRowPositive-1][futureColNegative+1].includes(colorSplit[0]) && board[futureRowPositive-1][futureColNegative+1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										return bool;
+									} else {
+										bool = true;
+									}
+								}
+							}
+						}
+					}
+					//BACKWARD MOVE
+					//Make sure rows do not go out array dimensions
+					if(futureRowNegative > 0 && futureRowNegative < board.length){
+						//Make sure cols do not go out of array dimensions
+						if(futureColPositive < board[row].length){
+							//check that there is ample jumping space
+							if(board[futureRowNegative][futureColPositive] == ""){
+								//check that there is a piece in the spot and that it is the opponents
+								if(!board[futureRowNegative+1][futureColPositive-1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColPositive-1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										return bool;
+									} else {
+										bool = true;
+									}
+									
+								} 
+							} //Make sure cols do not go out of array dimensions negatively 
+						}
+						if(futureColNegative >= 0){
+							//check to make sure there is ample jumping space
+							if(board[futureRowNegative][futureColNegative] == ""){
+								//check that there is a piece between of opposite color
+								if(!board[futureRowNegative+1][futureColNegative+1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColNegative+1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										return bool;
+									} else {
+										bool = true;
+									}
+								}
+							}
+						}
+					}
+					
+					//kings have to check all four paths
+					/*if(board[row][col] == 'bK' || board[row][col] == 'wK'){
+
+					}*/
+				}
+			}
+		}
+		return bool;
+	}
+
 	return{
 		populateBoard:populateBoard,
 		getVirtualBoard:getVirtualBoard,
 		validMove:validMove,
-		setVirtualBoard: setVirtualBoard
+		setVirtualBoard: setVirtualBoard,
+		checkForJumps:checkForJumps
 	}
 });
