@@ -1,7 +1,7 @@
-"use strict";
+
 angular.module('checkers')
     .service('SocketService', function($location) {
-
+    "use strict";
     var socket;
     var users = [];
     var me;
