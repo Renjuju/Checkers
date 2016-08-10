@@ -1,22 +1,37 @@
 * {
     margin: 0;
 }
-html, body {
-    height: 100%;
-}
-.wrapper {
+
+html {
+    position: relative;
     min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
 }
-.footer, .push {
-    height: 155px; /* .push must be the same height as .footer */
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 75px;
+    background-color: #2C2C2C;
 }
 
 br {
    display: block;
    margin: 50px 0;
+}
+
+.lobster-center {
+    text-align: center;
+    font-family: 'Lobster', cursive;
+}
+
+.lobster {
+    font-family: 'Lobster', cursive;
 }
 
 .bangers { 
@@ -46,21 +61,21 @@ br {
    
 }
 
-* {
-    margin: 0;
-}
-html, body {
-    height: 100%;
-}
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
-}
-.footer, .push {
-    height: 155px; /* .push must be the same height as .footer */
-}
+/** {*/
+    /*margin: 0;*/
+/*}*/
+/*html, body {*/
+    /*height: 100%;*/
+/*}*/
+/*.wrapper {*/
+    /*min-height: 100%;*/
+    /*height: auto !important;*/
+    /*height: 100%;*/
+    /*margin: 0 auto -155px; !* the bottom margin is the negative value of the footer's height *!*/
+/*}*/
+/*.footer, .push {*/
+    /*height: 155px; !* .push must be the same height as .footer *!*/
+/*}*/
 
 .the-blur{
    position: fixed;

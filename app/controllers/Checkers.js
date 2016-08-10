@@ -1,6 +1,6 @@
 'use strict';
 
-var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(function ($routeProvider) {
+var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute', 'ngAnimate']).config(function ($routeProvider) {
     $routeProvider.when("/", {templateUrl: "/views/Landing.html",}).when("/play/black", {
         templateUrl: "/views/Game.html",
         controller: 'CheckerBoardCtrl',
@@ -10,6 +10,9 @@ var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(fu
         templateUrl: "/views/Game.html",
         controller: 'CheckerBoardCtrl',
         orientation: 'white'
+    }).
+    when("/analytics", {
+        templateUrl: "/views/analytics.html"
     });
 });
 
@@ -19,14 +22,18 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'Socke
     $scope.animationsEnabled = true;
     $scope.isCollapsed = false;
 
+    //Player logs
     $http({
         method: 'GET',
         url: '/getAnalytics'
     }).then(function successCallback(response) {
         $scope.gamesPlayed = response.data.total_rows;
+        $scope.analytics = response.data;
+        console.log($scope.analytics);
     }, function errorCallback(response) {
 
     });
+
     // play modal start
     $scope.open = function (name) {
         if (!name) {
