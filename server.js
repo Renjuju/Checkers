@@ -1,4 +1,5 @@
-// Module dependencies.
+/*jshint esversion: 6 */
+'use strict';
 const fs = require('fs');
 const http = require('http');
 const express = require('express');
@@ -34,10 +35,10 @@ app.use('/scripts', express.static(__dirname + '/node_modules/socket.io/node_mod
 app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validator/dist'));
 app.use(express.static(__dirname + '/app/services'));
 
-connections = [];
+let connections = [];
 
-users = [];
-user = {};
+let users = [];
+let user = {};
 
 //socket.io
 io.sockets.on('connection', function (socket) {
@@ -57,28 +58,28 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('request game', function (requester, data) {
-        opponent = user[data];
+        let opponent = user[data];
         io.to(opponent).emit('new game request', requester);
     });
 
     socket.on('game accepted', function (responder, data) {
         winston.info({player: data});
-        opponent = user[data];
+        let opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'accepted');
     });
 
     socket.on('game rejected', function (responder, data) {
-        opponent = user[data];
+        let opponent = user[data];
         io.to(opponent).emit('game request response', responder, 'rejected');
     });
 
     socket.on('player forfeit', function(forfeiter, data) {
-        opponent = user[data];
+        let opponent = user[data];
         io.to(opponent).emit('opponent forfeit', forfeiter);
     });
 
     socket.on('player move', function(board, data) {
-        opponent = user[data];
+        let opponent = user[data];
         io.to(opponent).emit('opponent move', board);
     });
 });

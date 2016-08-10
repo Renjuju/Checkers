@@ -1,3 +1,4 @@
+'use strict';
 angular.module('checkers').controller('ForfeitModalCtrl', function ($scope, $uibModalInstance, $log, $location, SocketService, CheckerBoardService) {
 
     $scope.cancel = function () {
@@ -10,6 +11,6 @@ angular.module('checkers').controller('ForfeitModalCtrl', function ($scope, $uib
         $location.path('/');
         $uibModalInstance.dismiss();
 
-    }
+    };
 
 });
