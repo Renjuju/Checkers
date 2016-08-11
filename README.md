@@ -1,5 +1,11 @@
 # Checkers
 [![Build Status](https://travis-ci.com/Renjuju/Checkers.svg?token=w4e2mxas5XbnReXXPHKx&branch=master)](https://travis-ci.com/Renjuju/Checkers)
+
+#Something's broken? This will fix it 99/100 times
+```bash
+npm install
+```
+
 # Installation
 ```bash
 git clone https://github.com/Renjuju/Checkers.git
@@ -13,6 +19,11 @@ Then start up the server
 node server.js
 ```
 The site will be up at localhost
+
+#Unit tests!
+```bash
+npm test
+```
 
 #Using Git (Avoid pushing to master)
 Let's all not directly push to master to avoid overwriting someone elses code and messy merge conflicts. Instead
