@@ -3,8 +3,7 @@ module.exports = function(config) {
   config.set({
     browsers: ['PhantomJS'],
     basePath: '',
-    files: [
-
+    files: [ //ordering of files matters apparently. spent like an hour wondering why everything was broken
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angular-route/angular-route.min.js',
@@ -13,7 +12,6 @@ module.exports = function(config) {
       'app/controllers/*',
       'app/services/*',
       'tests/*',
-
     ],
     frameworks: ['mocha'],
 
@@ -22,19 +20,6 @@ module.exports = function(config) {
       'app/board'
     ],
 
-    // customLaunchers: {
-    //   'PhantomJS_custom': {
-    //     base: 'PhantomJS',
-    //     options: {
-    //       windowName: 'my-window',
-    //       settings: {
-    //         webSecurityEnabled: false
-    //       },
-    //     },
-    //     flags: ['--load-images=true'],
-    //     debug: true
-    //   }
-    // },
     singleRun: true,
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
