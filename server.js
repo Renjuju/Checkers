@@ -83,6 +83,11 @@ io.sockets.on('connection', function (socket) {
         let opponent = user[data];
         io.to(opponent).emit('opponent move', board);
     });
+
+    socket.on('player lost', function(data) {
+        let opponent = user[data];
+        io.to(opponent).emit('lost');
+    });
 });
 
 //end of socket.io

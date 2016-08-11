@@ -22,6 +22,14 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         document.getElementById("Turn").innerHTML = "YOUR TURN";
     });
 
+    SocketService.getSocket().on('lost', function() {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/views/loseModal.html',
+            controller: 'WinLoseModalCtrl'
+        });
+    });
+
     var onDragStart = function(source, piece, orientation) {
         if (CheckerBoardService.game.turn == 'me') {
             if(CheckerBoardService.game.color == 'black') {
@@ -52,9 +60,20 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             return 'snapback';
         }
        updateLocalCfg();
-       CheckerBoardService.game.turn = 'opponent';
        SocketService.updateBoard(CheckerBoardService.getVirtualBoard(), CheckerBoardService.game.opponent);
-       document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
+       var result = CheckerBoardService.checkWinLose(piece);
+       if (result == 'none') {
+            CheckerBoardService.game.turn = 'opponent';
+            document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
+       }
+       else {
+            SocketService.win(CheckerBoardService.game.me, CheckerBoardService.game.opponent);
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: '/views/winModal.html',
+                controller: 'WinLoseModalCtrl'
+        });
+       }
     };
 
     // initialize board

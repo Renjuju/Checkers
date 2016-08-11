@@ -297,11 +297,53 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		return bool;
 	}
 
+	function checkWinLose(playerColor) {
+		var result = 'none';
+		if (playerColor == 'wP' || playerColor == 'wK') {
+			var containsBlack = boardContains(board, 'black');
+			if (containsBlack == false) {
+				result = 'win';
+			}
+		}
+		else if (playerColor == 'bP' || playerColor == 'bK') {
+			var containsWhite = boardContains(board, 'white');
+			if (containsWhite == false) {
+				result = 'win';
+			}
+		}
+
+		return result;
+	}
+
+	function boardContains(board, value) {
+		var piece;
+		var king;
+		if (value == 'black') {
+			piece = 'bP';
+			king = 'bK';
+		}
+		else if (value == 'white') {
+			piece = 'wP';
+			king = 'wK';
+		}
+		
+		for (var i = 0; i < board.length; i++) {
+			for (var k = 0; k < board[i].length; k++) {
+				if (board[i][k] == piece || board[i][k] == king) {
+					return true;
+				}
+			}
+		}
+	
+		return false;
+	}
+
 	return{
 		populateBoard:populateBoard,
 		getVirtualBoard:getVirtualBoard,
 		validMove:validMove,
 		setVirtualBoard: setVirtualBoard,
-		checkForJumps:checkForJumps
+		checkForJumps:checkForJumps,
+		checkWinLose: checkWinLose
 	}
 });
