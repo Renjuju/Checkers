@@ -1,4 +1,4 @@
-angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService, CheckerBoardService) {
+var checkers = angular.module('checkers').controller('PlayModalCtrl', function ($scope, user, $uibModalInstance, $log, $location, SocketService, CheckerBoardService) {
     'use strict';
     $scope.users = [];
 

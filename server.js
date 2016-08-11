@@ -17,6 +17,7 @@ winston.add(winstonCouch, {
     level: 'info'
 });
 
+var port = 3000;
 app.use(express.static(__dirname + '/app/controllers'));
 app.use('/views', express.static(__dirname + '/app/views'));
 app.use(express.static(__dirname + '/app/css'));
@@ -101,9 +102,8 @@ app.get('/getAnalytics', function (req,res) {
     });
 });
 
-server.listen(3000 || process.env.PORT, function () {
-    console.log('Server listening on localhost');
-    console.log('Type localhost on your browser, there\'s no more port!');
+server.listen(port || process.env.PORT, function () {
+    console.log('Server listening on http://localhost:' + port);
 });
 
 
