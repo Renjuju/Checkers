@@ -48,6 +48,10 @@ angular.module('checkers')
         socket.emit('player move', board, opponent);
     }
 
+    function win(winner, loser) {
+        socket.emit('player lost', loser);
+    }
+
 
     return {
         connect: connect,
@@ -57,6 +61,7 @@ angular.module('checkers')
         getSocket: getSocket,
         accept: accept,
         forfeit: forfeit,
-        updateBoard: updateBoard
+        updateBoard: updateBoard,
+        win: win
     };
 });
