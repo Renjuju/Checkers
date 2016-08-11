@@ -1,6 +1,6 @@
 'use strict';
 
-var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute', 'ngAnimate']).config(function ($routeProvider) {
+var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(function ($routeProvider) {
     $routeProvider.when("/", {templateUrl: "/views/Landing.html",}).when("/play/black", {
         templateUrl: "/views/Game.html",
         controller: 'CheckerBoardCtrl',
