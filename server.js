@@ -21,19 +21,22 @@ var port = 3000;
 app.use(express.static(__dirname + '/app/controllers'));
 app.use('/views', express.static(__dirname + '/app/views'));
 app.use(express.static(__dirname + '/app/css'));
+app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular-ui-bootstrap/dist'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular-animate'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular-route'));
 app.use('/board', express.static(__dirname + '/app/board/js'));
 app.use('/styles', express.static(__dirname + '/app/board/css'));
-app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
-app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
-app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'))
+app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/styles', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'));
 app.use('/images', express.static(__dirname + '/app/board/img/chesspieces/wikipedia'));
 app.use('/scripts', express.static(__dirname + '/node_modules/socket.io-client/'));
 app.use('/scripts', express.static(__dirname + '/node_modules/socket.io/node_modules/socket.io-client/'));
 app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap-validator/dist'));
+app.use('/scripts', express.static(__dirname + '/node_modules/particles.js'));
+
 app.use(express.static(__dirname + '/app/services'));
 
 let connections = [];
