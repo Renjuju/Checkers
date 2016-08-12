@@ -49,5 +49,5 @@ Click that and merge the code in from your branch to the master branch
 |~~Requirements Document [Baselined~~]|7/24/16|
 |~~Design Document~~|7/24/16|
 |~~Team Evaluation Form [Midterm]~~|7/24/16|
-|Test Case Document|8/14/16   |
+|~~Test Case Document~~|8/14/16   |
 |Final Project Submission & Team Eval|8/21/16|
