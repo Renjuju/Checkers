@@ -17,6 +17,12 @@ var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(fu
 });
 
 Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', '$http', function ($scope, $log, $uibModal, SocketService, $http) {
+
+
+    particlesJS.load('particles-js', 'assets/particles.json', function() { // jshint ignore:line
+        console.log('callback - particles.js config loaded');
+    });
+
     var vm = this;
 
     $scope.animationsEnabled = true;
