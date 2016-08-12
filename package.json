@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    // cd into the './tests' directory before running this command
     "coverage": "istanbul cover ../node_modules/mocha/bin/_mocha *.js"
   },
   "repository": {
