@@ -4,7 +4,8 @@
   "description": "Checkers game",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "./node_modules/karma/bin/karma start",
+    "deploy": "fly production"
   },
   "repository": {
     "type": "git",
