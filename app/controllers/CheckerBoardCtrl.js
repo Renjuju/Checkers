@@ -64,6 +64,9 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         }
         
        updateLocalCfg();
+       if(CheckerBoardService.getJumpOccurred() && CheckerBoardService.checkDoubleJump(piece, target)){
+            return;
+       }
        SocketService.updateBoard(CheckerBoardService.getVirtualBoard(), CheckerBoardService.game.opponent);
        var result = CheckerBoardService.checkWinLose(piece);
        if (result == 'none') {
@@ -103,7 +106,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             g3: 'wP',
 
             b8: 'bP',
-            d8: 'bP',
+           // d8: 'bP',
             f8: 'bP',
             h8: 'bP',
             a7: 'bP',

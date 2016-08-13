@@ -4,6 +4,9 @@ angular.module('checkers').service('CheckerBoardService', function(){
 	//create a map of available jumps, map will contain an array of available jump locations
 	var availableJumps = {};
 	
+	//used to let other components that a jump has taken place
+	var jumpOccurred = false;
+
 	var game;
 
 	for(var i = 0; i < board.length; i++){
@@ -128,6 +131,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			} else {
 				//destroy the piece
 				board[oldX+1][oldY+1] = "";
+				jumpOccurred = true;
 			}
 			//the user jumped to the left
 		} else if(newX < oldX){
@@ -136,6 +140,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			} else {
 				//destroy the piece
 				board[oldX-1][oldY+1] = "";
+				jumpOccurred = true;
 			}
 
 		}
@@ -166,6 +171,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			} else {
 				//destroy the piece
 				board[oldX+1][oldY-1] = "";
+				jumpOccurred = true;
 			}
 			//the user jumped to the left
 		} else if(newX < oldX){
@@ -174,6 +180,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			} else {
 				//destroy the piece
 				board[oldX-1][oldY-1] = "";
+				jumpOccurred = true;
 			}
 
 		}
@@ -206,6 +213,9 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		var futureRowNegative;
 		var futureColPositive;
 		var futureColNegative;
+
+		//reset the value of flag for jumpoccurring
+		jumpOccurred = false;
 
 		for(var row = 0; row < board.length; row++){
 			for(var col = 0; col < board[row].length; col++){
@@ -339,6 +349,18 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		return false;
 	}
 
+	function checkDoubleJump(piece, position){
+		checkForJumps(piece, position);
+		if(Object.keys(availableJumps).length === 0){
+			return false;
+		}
+		return true;
+	}
+
+	function getJumpOccurred(){
+		return jumpOccurred;
+	}
+
 	function checkWinLose(playerColor) {
 		var result = 'none';
 		if (playerColor == 'wP' || playerColor == 'wK') {
@@ -387,6 +409,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		setVirtualBoard: setVirtualBoard,
 		checkForJumps:checkForJumps,
 		checkWinLose: checkWinLose,
-		forceJump: forceJump
+		forceJump: forceJump,
+		checkDoubleJump: checkDoubleJump,
+		getJumpOccurred: getJumpOccurred
 	}
 });
