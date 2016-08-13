@@ -4,8 +4,7 @@
   "description": "Checkers game",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start",
-    "coverage": "istanbul cover ../node_modules/mocha/bin/_mocha *.js"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -19,13 +18,19 @@
   "homepage": "https://github.com/Renjuju/Checkers#readme",
   "devDependencies": {
     "angular-mocks": "^1.5.8",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.4",
     "jshint": "^2.9.2",
     "karma": "^1.1.2",
+    "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-mocha": "^1.1.1",
     "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sinon": "^1.0.5",
+    "karma-sinon-chai": "^1.2.3",
     "particles.js": "^2.0.0",
-    "phantomjs": "^2.1.7"
+    "phantomjs": "^2.1.7",
+    "sinon": "^1.17.5"
   },
   "dependencies": {
     "angular": "^1.5.7",
