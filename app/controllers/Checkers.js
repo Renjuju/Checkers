@@ -51,6 +51,8 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'Socke
             animation: true,
             templateUrl: '/views/playModal.html',
             controller: 'PlayModalCtrl',
+            backdrop: 'static',
+            keyboard: false,
             resolve: {
                 user: function () {
                     return name;
