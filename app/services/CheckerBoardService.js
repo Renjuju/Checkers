@@ -192,7 +192,6 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		}
 	}
 
-
 	//return true if there is a jump available and the selected piece is not a jumpable piece
 	function checkForJumps(color, boardLocation){
 		//used for getting first character of the color for comparison of piece objects
@@ -311,7 +310,6 @@ angular.module('checkers').service('CheckerBoardService', function(){
 										} else {
 											availableJumps[boardLocation] = [boardPosition];
 										}
-										//return bool;
 									} else {
 										
 										bool = true;
@@ -320,15 +318,25 @@ angular.module('checkers').service('CheckerBoardService', function(){
 							}
 						}
 					}
-					
-					//kings have to check all four paths
-					/*if(board[row][col] == 'bK' || board[row][col] == 'wK'){
-
-					}*/
 				}
 			}
 		}
 		return bool;
+	}
+
+	function forceJump(startPos, endPos){
+		if(Object.keys(availableJumps).length === 0)
+			return true;
+		if(startPos in availableJumps){
+			for(var i=0; i<availableJumps[startPos].length; i++){
+				if(availableJumps[startPos][i] == endPos){
+					//clear out the map for til the next time
+					availableJumps = {};
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	function checkWinLose(playerColor) {
@@ -378,6 +386,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		validMove:validMove,
 		setVirtualBoard: setVirtualBoard,
 		checkForJumps:checkForJumps,
-		checkWinLose: checkWinLose
+		checkWinLose: checkWinLose,
+		forceJump: forceJump
 	}
 });
