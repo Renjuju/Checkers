@@ -27,6 +27,9 @@ The site will be up at localhost
 npm test
 ```
 
+##Code coverage
+Click on /coverage/[PhantomJs]/index.html
+
 #Using Git (Avoid pushing to master)
 Let's all not directly push to master to avoid overwriting someone elses code and messy merge conflicts. Instead
 ```bash
