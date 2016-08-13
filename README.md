@@ -30,20 +30,6 @@ npm test
 ##Code coverage
 Click on /coverage/[PhantomJs]/index.html
 
-#Using Git (Avoid pushing to master)
-Let's all not directly push to master to avoid overwriting someone elses code and messy merge conflicts. Instead
-```bash
-git checkout -b "your branch name"
-```
-Make our changes for the branch, ideally the branch name being the feature we're working on
-Then push to that branch
-```bash
-git push origin "your branch name"
-```
-Afterwards, go back to the main repo page on github and we'll see a green button that says "Pull Request"
-![alt text](http://i.imgur.com/CBYJXoS.png "Pull request")
-
-Click that and merge the code in from your branch to the master branch
 # Due Dates
 |Tasks   |Dates   |
 |---|---|
