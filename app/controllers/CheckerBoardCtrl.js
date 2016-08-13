@@ -10,8 +10,13 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
     }
 
     SocketService.getSocket().on('opponent forfeit', function(data) {
-        alert(data + ' has forfeited the game! Press OK to go back to the main menu.');
-        $location.path('/');
+        var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: '/views/winModal.html',
+                controller: 'WinLoseModalCtrl',
+                backdrop  : 'static',
+                keyboard  : false
+        });
         SocketService.disconnect();
     });
 
@@ -26,7 +31,9 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/views/loseModal.html',
-            controller: 'WinLoseModalCtrl'
+            controller: 'WinLoseModalCtrl',
+            backdrop  : 'static',
+            keyboard  : false
         });
     });
 
@@ -78,8 +85,10 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: '/views/winModal.html',
-                controller: 'WinLoseModalCtrl'
-        });
+                controller: 'WinLoseModalCtrl',
+                backdrop  : 'static',
+                keyboard  : false
+            });
        }
     };
 
