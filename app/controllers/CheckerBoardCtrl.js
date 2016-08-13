@@ -56,9 +56,13 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
     };
 
     var onDrop = function(source, target, piece, newPos, oldPos, orientation){
+        if(!CheckerBoardService.forceJump(source, target)){
+            return 'snapback';
+        }
         if(!CheckerBoardService.validMove(piece, source, target)){
             return 'snapback';
         }
+        
        updateLocalCfg();
        SocketService.updateBoard(CheckerBoardService.getVirtualBoard(), CheckerBoardService.game.opponent);
        var result = CheckerBoardService.checkWinLose(piece);
@@ -109,7 +113,8 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             b6: 'bP',
             d6: 'bP',
             f6: 'bP',
-            h6: 'bP',
+            h6: 'bP'
+
         }
     };
 

@@ -1,7 +1,9 @@
 angular.module('checkers').service('CheckerBoardService', function(){ 
 
 	var board = new Array(8);
-
+	//create a map of available jumps, map will contain an array of available jump locations
+	var availableJumps = {};
+	
 	var game;
 
 	for(var i = 0; i < board.length; i++){
@@ -190,7 +192,6 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		}
 	}
 
-
 	//return true if there is a jump available and the selected piece is not a jumpable piece
 	function checkForJumps(color, boardLocation){
 		//used for getting first character of the color for comparison of piece objects
@@ -216,25 +217,85 @@ angular.module('checkers').service('CheckerBoardService', function(){
 					futureColNegative = col-2;
 					//FORWARD MOVE
 					//Make sure rows do not go out array dimensions
-					if(futureRowPositive > 0 && futureRowPositive < board.length){
+					if(futureColPositive < board[row].length && board[row][col] != "bP"){
 						//Make sure cols do not go out of array dimensions
-						if(futureColPositive < board[row].length){
-							//check that there is ample jumping space
+						if(futureRowPositive < board[row].length){
+							//check that there is ample jumping space, forward moves strictly enforce black mans to go forward
 							if(board[futureRowPositive][futureColPositive] == ""){
 								//check that there is a piece in the spot and that it is the opponents
 								if(!board[futureRowPositive-1][futureColPositive-1].includes(colorSplit[0]) && board[futureRowPositive-1][futureColPositive-1] != ""){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										return bool;
+										var chr = String.fromCharCode(97 + futureRowPositive);
+                    					var boardPosition = chr.concat(futureColPositive+1);
+										if(boardLocation in availableJumps){
+											availableJumps[boardLocation].push(boardPosition);
+										} else {
+											availableJumps[boardLocation] = [boardPosition];
+										}
+									//	return bool;
 									} else {
+										
+										bool = true;
+									}
+									
+								} 
+							} //Make sure cols and rows do not go out of array dimensions negatively 
+						}
+						if(futureRowNegative >= 0){
+							//check to make sure there is ample jumping space
+							if(board[futureRowNegative][futureColPositive] == ""){
+								//check that there is a piece between of opposite color
+								if(!board[futureRowNegative+1][futureColPositive-1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColPositive-1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										var chr = String.fromCharCode(97 + futureRowNegative);
+                    					var boardPosition = chr.concat(futureColPositive+1);
+										if(boardLocation in availableJumps){
+											availableJumps[boardLocation].push(boardPosition);
+										} else {
+											availableJumps[boardLocation] = [boardPosition];
+										}
+										//return bool;
+									} else {
+										bool = true;
+									}
+								}
+							}
+						}
+
+					}
+					//BACKWARD MOVE
+					//Make sure rows do not go out array dimensions
+					if(futureColNegative >= 0 && board[row][col] != "wP"){
+						//Make sure cols do not go out of array dimensions
+						if(futureRowNegative >= 0){
+							//check that there is ample jumping space, backward moves strictly enforce white mans to go backward
+							if(board[futureRowNegative][futureColNegative] == ""){
+								//check that there is a piece in the spot and that it is the opponents
+								if(!board[futureRowNegative+1][futureColNegative+1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColNegative+1] != ""){
+									//There is a jump available and the clicked piece is not the piece that can jump
+									if(x == row && y == col){
+										bool = false;
+										var chr = String.fromCharCode(97 + futureRowNegative);
+                    					var boardPosition = chr.concat(futureColNegative+1);
+										if(boardLocation in availableJumps){
+											availableJumps[boardLocation].push(boardPosition);
+										} else {
+											availableJumps[boardLocation] = [boardPosition];
+										}
+										//return bool;
+									} else {
+										
 										bool = true;
 									}
 									
 								} 
 							} //Make sure cols do not go out of array dimensions negatively 
 						}
-						if(futureColNegative >= 0){
+						if(futureRowPositive < board.length){
 							//check to make sure there is ample jumping space
 							if(board[futureRowPositive][futureColNegative] == ""){
 								//check that there is a piece between of opposite color
@@ -242,59 +303,40 @@ angular.module('checkers').service('CheckerBoardService', function(){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										return bool;
+										var chr = String.fromCharCode(97 + futureRowPositive);
+                    					var boardPosition = chr.concat(futureColNegative+1);
+										if(boardLocation in availableJumps){
+											availableJumps[boardLocation].push(boardPosition);
+										} else {
+											availableJumps[boardLocation] = [boardPosition];
+										}
 									} else {
+										
 										bool = true;
 									}
 								}
 							}
 						}
 					}
-					//BACKWARD MOVE
-					//Make sure rows do not go out array dimensions
-					if(futureRowNegative > 0 && futureRowNegative < board.length){
-						//Make sure cols do not go out of array dimensions
-						if(futureColPositive < board[row].length){
-							//check that there is ample jumping space
-							if(board[futureRowNegative][futureColPositive] == ""){
-								//check that there is a piece in the spot and that it is the opponents
-								if(!board[futureRowNegative+1][futureColPositive-1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColPositive-1] != ""){
-									//There is a jump available and the clicked piece is not the piece that can jump
-									if(x == row && y == col){
-										bool = false;
-										return bool;
-									} else {
-										bool = true;
-									}
-									
-								} 
-							} //Make sure cols do not go out of array dimensions negatively 
-						}
-						if(futureColNegative >= 0){
-							//check to make sure there is ample jumping space
-							if(board[futureRowNegative][futureColNegative] == ""){
-								//check that there is a piece between of opposite color
-								if(!board[futureRowNegative+1][futureColNegative+1].includes(colorSplit[0]) && board[futureRowNegative+1][futureColNegative+1] != ""){
-									//There is a jump available and the clicked piece is not the piece that can jump
-									if(x == row && y == col){
-										bool = false;
-										return bool;
-									} else {
-										bool = true;
-									}
-								}
-							}
-						}
-					}
-					
-					//kings have to check all four paths
-					/*if(board[row][col] == 'bK' || board[row][col] == 'wK'){
-
-					}*/
 				}
 			}
 		}
 		return bool;
+	}
+
+	function forceJump(startPos, endPos){
+		if(Object.keys(availableJumps).length === 0)
+			return true;
+		if(startPos in availableJumps){
+			for(var i=0; i<availableJumps[startPos].length; i++){
+				if(availableJumps[startPos][i] == endPos){
+					//clear out the map for til the next time
+					availableJumps = {};
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	function checkWinLose(playerColor) {
@@ -344,6 +386,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		validMove:validMove,
 		setVirtualBoard: setVirtualBoard,
 		checkForJumps:checkForJumps,
-		checkWinLose: checkWinLose
+		checkWinLose: checkWinLose,
+		forceJump: forceJump
 	}
 });
