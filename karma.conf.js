@@ -6,19 +6,26 @@ module.exports = function(config) {
     files: [ //ordering of files matters apparently. spent like an hour wondering why everything was broken
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/angular-route/angular-route.min.js',
       'node_modules/angular-ui-bootstrap/dist/*',
       'app/controllers/Checkers.js',
       'app/controllers/*',
       'app/services/*',
+      'node_modules/angular-route/angular-route.min.js',
       'tests/*',
     ],
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
-    // list of files to exclude
-    exclude: [
-      'app/board'
-    ],
+    preprocessors : {
+      'app/controllers/*.js': 'coverage',
+      'app/services/*.js': 'coverage'
+    },
+
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
 
     singleRun: true,
     phantomjsLauncher: {

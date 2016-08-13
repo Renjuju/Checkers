@@ -16,12 +16,12 @@ var Checkers = angular.module('checkers', ['ui.bootstrap', 'ngRoute']).config(fu
     });
 });
 
-Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', '$http', function ($scope, $log, $uibModal, SocketService, $http) {
+Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'SocketService', '$http', '$window', function ($scope, $log, $uibModal, SocketService, $http, $window) {
 
-
-    particlesJS.load('particles-js', 'assets/particles.json', function() { // jshint ignore:line
-        console.log('callback - particles.js config loaded');
+    $window.particlesJS.load('particles-js', 'assets/particles.json', function() { // jshint ignore:line
+       console.log('callback - particles.js config loaded');
     });
+
 
     var vm = this;
 
@@ -39,7 +39,6 @@ Checkers.controller('CheckersController', ['$scope', '$log', '$uibModal', 'Socke
     }, function errorCallback(response) {
 
     });
-
     // play modal start
     $scope.open = function (name) {
         if (!name) {
