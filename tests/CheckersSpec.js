@@ -7,6 +7,7 @@
         var httpBackend;
 
         beforeEach(module('checkers'));
+
         beforeEach(module(function($provide) {
             $provide.service('SocketService', function() {
                return {
@@ -14,6 +15,7 @@
                };
             });
         }));
+
         beforeEach(inject(function($rootScope, $controller, $window, $httpBackend) {
             scope = $rootScope.$new();
             httpBackend = $httpBackend;
@@ -31,13 +33,6 @@
             expect(returnValue).to.be.an('undefined');
         });
 
-        it('expects to open the modal', function() {
-           scope.open('Renju');
-           expect(name).to.not.be.an('undefined');
-            // var spy = sinon.spy($log , 'info');
-            // expect(spy).to.have.been.called();
-        });
-
         it('expects to resolve http promise', function() {
             var response = {
                 data : {
@@ -45,9 +40,15 @@
                 }
             };
             
-            response.data.total_rows
             httpBackend.expectGET('/getAnalytics').respond(response);
             httpBackend.flush();
+        });
+
+        it('expects to resovle modal instance', function() {
+            scope.open('renju');
+            httpBackend.expectGET('/getAnalytics').respond(200);
+            httpBackend.expectGET('/views/playModal.html').respond(200);
+            scope.$apply();
         });
     });
 })();
