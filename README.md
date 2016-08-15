@@ -22,6 +22,11 @@ node server.js
 ```
 The site will be up at localhost
 
+#Deployment to server
+```bash
+npm run deploy
+```
+
 #Unit tests!
 ```bash
 npm test
