@@ -4,6 +4,7 @@
 
         var scope;
         var ctrl;
+        var httpBackend;
 
         beforeEach(module('checkers'));
         beforeEach(module(function($provide) {
@@ -13,9 +14,9 @@
                };
             });
         }));
-        beforeEach(inject(function($rootScope, $controller, $window) {
+        beforeEach(inject(function($rootScope, $controller, $window, $httpBackend) {
             scope = $rootScope.$new();
-
+            httpBackend = $httpBackend;
             $window.particlesJS = {
                 load:angular.noop
             };
@@ -31,11 +32,22 @@
         });
 
         it('expects to open the modal', function() {
-           var name = scope.open('Renju');
-
-           expect(name).to.be.an('undefined');
+           scope.open('Renju');
+           expect(name).to.not.be.an('undefined');
             // var spy = sinon.spy($log , 'info');
             // expect(spy).to.have.been.called();
+        });
+
+        it('expects to resolve http promise', function() {
+            var response = {
+                data : {
+                    total_rows: 5
+                }
+            };
+            
+            response.data.total_rows
+            httpBackend.expectGET('/getAnalytics').respond(response);
+            httpBackend.flush();
         });
     });
 })();
