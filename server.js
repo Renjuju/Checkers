@@ -9,10 +9,10 @@ const path = require('path');
 const io = require('socket.io').listen(server);
 const winston = require('winston');
 const winstonCouch = require('winston-couchdb').Couchdb;
-const nano = require('nano')('http://ec2-52-40-146-219.us-west-2.compute.amazonaws.com:5984').use('winston');
+const nano = require('nano')('http://ec2-52-43-152-10.us-west-2.compute.amazonaws.com:5984').use('winston');
 
 winston.add(winstonCouch, {
-    host: 'ec2-52-40-146-219.us-west-2.compute.amazonaws.com',
+    host: 'ec2-52-43-152-10.us-west-2.compute.amazonaws.com',
     port: 5984,
     level: 'info'
 });

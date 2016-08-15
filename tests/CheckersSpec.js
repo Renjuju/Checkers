@@ -26,12 +26,14 @@
         }));
 
         it('expects open to return when no name specified', function(){
-            var name = scope.open();
-            expect(name).to.be.an('undefined');
+            var returnValue = scope.open();
+            expect(returnValue).to.be.an('undefined');
         });
 
         it('expects to open the modal', function() {
-           scope.open('Renju');
+           var name = scope.open('Renju');
+
+           expect(name).to.be.an('undefined');
             // var spy = sinon.spy($log , 'info');
             // expect(spy).to.have.been.called();
         });
