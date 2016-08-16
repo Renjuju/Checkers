@@ -2,12 +2,12 @@ var checkers = angular.module('checkers').controller('PlayModalCtrl', function (
     'use strict';
     $scope.users = [];
 
-    SocketService.getSocket().on('new message', function (data) {
+    $scope.message = SocketService.getSocket().on('new message', function (data) {
         $scope.users = data;
         $scope.$apply();
     });
 
-    SocketService.getSocket().on('new game request', function (requester) {
+    $scope.gameRequest = SocketService.getSocket().on('new game request', function (requester) {
         var r = confirm(requester + ' has requested to play a game with you!');
         if (r == true) {
             SocketService.accept(requester);
@@ -24,7 +24,7 @@ var checkers = angular.module('checkers').controller('PlayModalCtrl', function (
         }
     });
 
-    SocketService.getSocket().on('game request response', function (responder, answer) {
+    $scope.gameResponse = SocketService.getSocket().on('game request response', function (responder, answer) {
         if (answer == 'accepted') {
             $scope.close();
             CheckerBoardService.game = {

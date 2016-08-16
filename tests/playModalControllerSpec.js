@@ -13,7 +13,7 @@
         beforeEach(module('checkers'));
 
         beforeEach(module(function($provide) {
-            $provide.service('SocketService', function() {
+            $provide.service('SocketService', function($q) {
                 return {
                     connect: angular.noop,
                     accept: angular.noop,
@@ -21,14 +21,14 @@
                     sendRequest: angular.noop,
                     disconnect: angular.noop,
                     getSocket: function() {
-                        return {
-                            on: angular.noop
-                        }
+                            return {
+                                on : function(name, func) {
+                                    func();
+                                }
+                            };
                     }
                 };
             });
-
-            $provide.service('getSocket')
 
             $provide.service('CheckerBoardService', function() {
                 return {
@@ -78,6 +78,7 @@
 
         it('expects to send game request to player', function() {
             var spy = chai.spy.on(SocketService, 'sendRequest');
+            scope.users = [];
             scope.play(0);
             expect(spy).to.have.been.called.with(undefined);
         });
@@ -96,5 +97,10 @@
             scope.close();
             expect(spy).to.have.been.called();
         });
+
+        // it('expects to resolve socketservice.on calls', function() {
+        //
+        //     scope.$digest();
+        // });
     });
 })();
