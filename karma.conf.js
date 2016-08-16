@@ -13,7 +13,7 @@ module.exports = function(config) {
       'node_modules/angular-route/angular-route.min.js',
       'tests/*',
     ],
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['mocha', 'chai-spies', 'chai', 'sinon'],
 
     preprocessors : {
       'app/controllers/*.js': 'coverage',
