@@ -1,15 +1,15 @@
 var plan = require('flightplan');
 
 var appName = 'checkers';
-var username = 'deploy';
+var username = 'root';
 var startFile = 'server.js';
 
 var tmpDir = appName+'-' + new Date().getTime();
 
 plan.target('production', [
   {
-    host: '52.43.152.10',
-    username: 'deploy',
+    host: '192.241.142.64',
+    username: 'root',
     agent: process.env.SSH_AUTH_SOCK
   },
 ]);
