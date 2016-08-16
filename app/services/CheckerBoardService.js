@@ -237,14 +237,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										var chr = String.fromCharCode(97 + futureRowPositive);
-                    					var boardPosition = chr.concat(futureColPositive+1);
-										if(boardLocation in availableJumps){
-											availableJumps[boardLocation].push(boardPosition);
-										} else {
-											availableJumps[boardLocation] = [boardPosition];
-										}
-									//	return bool;
+										addToAvailableJumps(futureRowPositive, futureColPositive, boardLocation);
+										return bool;
 									} else {
 										
 										bool = true;
@@ -261,14 +255,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										var chr = String.fromCharCode(97 + futureRowNegative);
-                    					var boardPosition = chr.concat(futureColPositive+1);
-										if(boardLocation in availableJumps){
-											availableJumps[boardLocation].push(boardPosition);
-										} else {
-											availableJumps[boardLocation] = [boardPosition];
-										}
-										//return bool;
+										addToAvailableJumps(futureRowNegative, futureColPositive, boardLocation);
+										return bool;
 									} else {
 										bool = true;
 									}
@@ -289,14 +277,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										var chr = String.fromCharCode(97 + futureRowNegative);
-                    					var boardPosition = chr.concat(futureColNegative+1);
-										if(boardLocation in availableJumps){
-											availableJumps[boardLocation].push(boardPosition);
-										} else {
-											availableJumps[boardLocation] = [boardPosition];
-										}
-										//return bool;
+										addToAvailableJumps(futureRowNegative, futureColNegative, boardLocation);
+										return bool;
 									} else {
 										
 										bool = true;
@@ -313,13 +295,8 @@ angular.module('checkers').service('CheckerBoardService', function(){
 									//There is a jump available and the clicked piece is not the piece that can jump
 									if(x == row && y == col){
 										bool = false;
-										var chr = String.fromCharCode(97 + futureRowPositive);
-                    					var boardPosition = chr.concat(futureColNegative+1);
-										if(boardLocation in availableJumps){
-											availableJumps[boardLocation].push(boardPosition);
-										} else {
-											availableJumps[boardLocation] = [boardPosition];
-										}
+										addToAvailableJumps(futureRowPositive, futureColNegative, boardLocation);
+										return bool;
 									} else {
 										
 										bool = true;
@@ -332,6 +309,16 @@ angular.module('checkers').service('CheckerBoardService', function(){
 			}
 		}
 		return bool;
+	}
+
+	function addToAvailableJumps(firstDigit, secondDigit, boardLocation){
+		var chr = String.fromCharCode(97 + firstDigit);
+        var boardPosition = chr.concat(secondDigit+1);
+		if(boardLocation in availableJumps){
+			availableJumps[boardLocation].push(boardPosition);
+		} else {
+			availableJumps[boardLocation] = [boardPosition];
+		}
 	}
 
 	function forceJump(startPos, endPos){
