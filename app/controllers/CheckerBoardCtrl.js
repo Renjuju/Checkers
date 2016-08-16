@@ -115,7 +115,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             g3: 'wP',
 
             b8: 'bP',
-           // d8: 'bP',
+            d8: 'bP',
             f8: 'bP',
             h8: 'bP',
             a7: 'bP',
