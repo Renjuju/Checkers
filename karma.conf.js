@@ -7,6 +7,7 @@ module.exports = function(config) {
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angular-ui-bootstrap/dist/*',
+      'node_modules/socket.io/node_modules/socket.io-client/socket.io.js',
       'app/controllers/Checkers.js',
       'app/controllers/*',
       'app/services/*',
