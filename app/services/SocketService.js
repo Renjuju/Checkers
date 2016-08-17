@@ -60,6 +60,7 @@ angular.module('checkers')
         sendRequest: sendRequest,
         getSocket: getSocket,
         accept: accept,
+        reject: reject,
         forfeit: forfeit,
         updateBoard: updateBoard,
         win: win
