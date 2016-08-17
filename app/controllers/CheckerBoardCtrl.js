@@ -1,12 +1,19 @@
 'use strict';
 
-angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, SocketService, CheckerBoardService) {
+angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log, $location, $uibModal, $route, SocketService, CheckerBoardService, $window) {
+    /* istanbul ignore if*/
+    if(!CheckerBoardService.game) {
+        $scope.turn = 'Woah, you cant be here right now!';
+        $location.path("/");
+        return;
+    }
 
-    if (CheckerBoardService.game.turn == 'me') {
-        document.getElementById("Turn").innerHTML = "YOUR TURN";
+    /* istanbul ignore else */
+    if (CheckerBoardService.game.turn === 'me') {
+        $scope.turn = "YOUR TURN";
     }
     else {
-        document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
+        $scope.turn = "OPPONENT'S TURN";
     }
 
     SocketService.getSocket().on('opponent forfeit', function(data) {
@@ -22,9 +29,9 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
 
     SocketService.getSocket().on('opponent move', function(data) {
         CheckerBoardService.setVirtualBoard(data);
-        updatecfg(data);
+        $scope.updatecfg(data);
         CheckerBoardService.game.turn = 'me';
-        document.getElementById("Turn").innerHTML = "YOUR TURN";
+        $scope.turn = "YOUR TURN";
     });
 
     SocketService.getSocket().on('lost', function() {
@@ -37,8 +44,10 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         });
     });
 
-    var onDragStart = function(source, piece, orientation) {
+    $scope.onDragStart = function(source, piece, orientation) {
+        /* istanbul ignore else */
         if (CheckerBoardService.game.turn == 'me') {
+            /* istanbul ignore else */
             if(CheckerBoardService.game.color == 'black') {
                 if (piece.search(/^bP/) === -1 && piece.search(/^bK/) === -1) {
                     return false;
@@ -62,7 +71,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         
     };
 
-    var onDrop = function(source, target, piece, newPos, oldPos, orientation){
+    $scope.onDrop = function(source, target, piece, newPos, oldPos, orientation){
         if(!CheckerBoardService.forceJump(source, target)){
             return 'snapback';
         }
@@ -70,7 +79,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             return 'snapback';
         }
         
-       updateLocalCfg();
+       $scope.updateLocalCfg();
        if(CheckerBoardService.getJumpOccurred() && CheckerBoardService.checkDoubleJump(piece, target)){
             return;
        }
@@ -94,11 +103,11 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
 
     // initialize board
 
-    var cfg = {
+    $scope.cfg = {
         draggable: true,
         pieceTheme: '/images/{piece}.png',
-        onDragStart: onDragStart,
-        onDrop: onDrop,
+        onDragStart: $scope.onDragStart,
+        onDrop: $scope.onDrop,
         orientation: $route.current.$$route.orientation,
         position: {
             a1: 'wP',
@@ -130,33 +139,32 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         }
     };
 
-    function updateLocalCfg(){
+    $scope.updateLocalCfg = function(){
         var virtualBoard = CheckerBoardService.getVirtualBoard();
-        updatecfg(virtualBoard);
+        $scope.updatecfg(virtualBoard);
     }
-    function updatecfg(virtualBoard){
+
+     $scope.updatecfg = function(virtualBoard){
         //clear out the current position object
-        var oldCfgPos = cfg.position;
-        cfg.position = {};
+        var oldCfgPos = $scope.cfg.position;
+        $scope.cfg.position = {};
         //repopulated the position object with the values found in the 2d array
-        
         for(var row = 0; row < virtualBoard.length; row++){
             for(var col = 0; col < virtualBoard.length; col++){
                 if(virtualBoard[row][col] != ""){
                     var chr = String.fromCharCode(97 + row);
                     var boardPosition = chr.concat(col+1);
-                    cfg.position[boardPosition] = virtualBoard[row][col];
+                    $scope.cfg.position[boardPosition] = virtualBoard[row][col];
                 }
             }
         }
-
-        $scope.board = ChessBoard('board', cfg);
+        $scope.board = $window.ChessBoard('board', $scope.cfg);
     };
 
-    CheckerBoardService.populateBoard(cfg.position);
+    CheckerBoardService.populateBoard($scope.cfg.position);
 
 
-    $scope.board = ChessBoard('board', cfg);
+    $scope.board = $window.ChessBoard('board', $scope.cfg);
     $(window).resize($scope.board.resize);
 
 
@@ -172,6 +180,5 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
             controller: 'ForfeitModalCtrl',
             size: size
         });
-
-    }
+    };
 });

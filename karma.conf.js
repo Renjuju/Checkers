@@ -11,6 +11,7 @@ module.exports = function(config) {
       'app/controllers/*',
       'app/services/*',
       'node_modules/angular-route/angular-route.min.js',
+      'node_modules/jquery/dist/jquery.min.js',
       'tests/*',
     ],
     frameworks: ['mocha', 'chai-spies', 'chai', 'sinon'],
