@@ -8,10 +8,9 @@ var checkers = angular.module('checkers').controller('PlayModalCtrl', function (
     });
 
     $scope.gameRequest = SocketService.getSocket().on('new game request', function (requester) {
-        var r = confirm(requester + ' has requested to play a game with you!');
-        if (r == true) {
+        if (confirm(requester + ' has requested to play a game with you!') == true) {
             SocketService.accept(requester);
-            $scope.close();
+            $uibModalInstance.dismiss();
             CheckerBoardService.game = {
                 me: user,
                 opponent: requester,
@@ -26,7 +25,7 @@ var checkers = angular.module('checkers').controller('PlayModalCtrl', function (
 
     $scope.gameResponse = SocketService.getSocket().on('game request response', function (responder, answer) {
         if (answer == 'accepted') {
-            $scope.close();
+            $uibModalInstance.dismiss();
             CheckerBoardService.game = {
                 me: user,
                 opponent: responder,

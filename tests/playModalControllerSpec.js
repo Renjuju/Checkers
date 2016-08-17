@@ -13,6 +13,8 @@
         beforeEach(module('checkers'));
 
         beforeEach(module(function($provide) {
+
+
             $provide.service('SocketService', function($q) {
                 return {
                     connect: angular.noop,
@@ -23,7 +25,16 @@
                     getSocket: function() {
                             return {
                                 on : function(name, func) {
-                                    func();
+                                    if (name == 'new message') {
+                                        func();
+                                    }
+                                    else if (name == 'new game request') {
+                                        func('test');
+                                    }
+                                    else if (name == 'game request response') {
+                                        func('test', 'accepted');
+                                        func();
+                                    }
                                 }
                             };
                     }
@@ -98,9 +109,9 @@
             expect(spy).to.have.been.called();
         });
 
-        // it('expects to resolve socketservice.on calls', function() {
-        //
-        //     scope.$digest();
-        // });
+        it('expects to resolve socketservice.on calls', function() {
+            scope.$digest();
+
+        });
     });
 })();
