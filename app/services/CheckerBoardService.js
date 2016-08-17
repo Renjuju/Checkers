@@ -126,6 +126,7 @@ angular.module('checkers').service('CheckerBoardService', function(){
 		//Check that there is a piece in between the jump so that the jump is valid
 		//user jumped to the right
 		else if(newX > oldX){
+			console.log('x = ', oldX+1, 'y = ', oldY+1, board[oldX+1][oldY+1], pieceType[0]);
 			if(board[oldX+1][oldY+1] == "" || board[oldX+1][oldY+1].includes(pieceType[0])){
 				bool = false;
 			} else {
