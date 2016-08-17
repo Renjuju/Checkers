@@ -9,6 +9,7 @@
         var CheckerBoardService;
         var location;
         var mockWindow;
+        var $httpBackend;
 
         beforeEach(module('checkers'));
 
@@ -31,6 +32,12 @@
                     updateBoard: angular.noop,
                     win: angular.noop
                 };
+            });
+
+            $provide.service('$uibModal', function() {
+               return {
+                   open: angular.noop
+               }
             });
 
             $provide.service('CheckerBoardService', function() {
@@ -71,13 +78,20 @@
 
         }));
 
-        beforeEach(inject(function($rootScope, $controller, $uibModalInstance, _SocketService_, _CheckerBoardService_, $location, $window) {
+        beforeEach(inject(function($rootScope, $controller, $uibModalInstance, _SocketService_, _CheckerBoardService_, $location, $window, _$httpBackend_, _$uibModal_) {
             scope = $rootScope.$new();
             modalInstance = $uibModalInstance;
             SocketService = _SocketService_;
             CheckerBoardService = _CheckerBoardService_;
             location = $location;
+            $httpBackend = _$httpBackend_;
             mockWindow = $window;
+
+            $httpBackend.expectGET('/views/winModal.html').respond(200);
+            $httpBackend.expectGET('/views/loseModal.html').respond(200);
+            $httpBackend.expectGET('uib/template/modal/backdrop.html').respond(200);
+            $httpBackend.expectGET('uib/template/modal/window.html').respond(200);
+
             mockWindow.ChessBoard = function() {
                 return {
                     board: {
@@ -118,7 +132,6 @@
             };
 
             var response = scope.onDragStart(null, piece, false);
-
             expect(response).to.equal(false);
         });
 
@@ -159,12 +172,18 @@
             expect(res).to.equal(undefined);
         });
 
-        it('expects ondrop to ', function() {
-           CheckerBoardService.forceJump = function(){return true;};
-           CheckerBoardService.validMove = function(){return true;};
-           CheckerBoardService.checkDoubleJump = function(){return false;};
+        it('expects to win!', function() {
+            var spy = chai.spy.on(SocketService, 'win');
+
+            $httpBackend.expectGET('/views/winModal.html').respond(200);
+            
+            CheckerBoardService.forceJump = function(){return true;};
+            CheckerBoardService.validMove = function(){return true;};
+            CheckerBoardService.checkDoubleJump = function(){return false;};
 
             var res = scope.onDrop();
+            
+            expect(spy).to.have.been.called();
         });
     });
 })();

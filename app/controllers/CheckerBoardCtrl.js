@@ -32,6 +32,7 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
         $scope.updatecfg(data);
         CheckerBoardService.game.turn = 'me';
         $scope.turn = "YOUR TURN";
+        $scope.$apply();
     });
 
     SocketService.getSocket().on('lost', function() {
@@ -87,7 +88,8 @@ angular.module('checkers').controller('CheckerBoardCtrl', function($scope, $log,
        var result = CheckerBoardService.checkWinLose(piece);
        if (result == 'none') {
             CheckerBoardService.game.turn = 'opponent';
-            document.getElementById("Turn").innerHTML = "OPPONENT'S TURN";
+            $scope.turn = "OPPONENT'S TURN";
+            $scope.$apply();
        }
        else {
             SocketService.win(CheckerBoardService.game.me, CheckerBoardService.game.opponent);

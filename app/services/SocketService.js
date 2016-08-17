@@ -1,6 +1,6 @@
 
 angular.module('checkers')
-    .service('SocketService', function($location) {
+    .service('SocketService', function($location, $window) {
     "use strict";
     var socket;
     var users = [];
@@ -11,7 +11,7 @@ angular.module('checkers')
      }
 
     function connect(user) {
-        socket = io.connect();
+        socket = $window.io.connect();
         if(users.length == 0) {
             users.push(user);
         }
