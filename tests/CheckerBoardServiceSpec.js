@@ -62,7 +62,7 @@
 			var res = CheckerBoardService;
 		});
 
-		/*it('expects validMove to return true via a positivejump with a wP', function(){
+		it('expects validMove to return true via a positivejump with a wP', function(){
 			var _board = new Array(8);
 			for(var i = 0; i<_board.length; i++){
 				_board[i] = new Array(8);
@@ -83,7 +83,7 @@
 			expect(retVal).to.equal(true);
 
 			var res = CheckerBoardService;
-		});*/
+		});
 
 		it('expects validMove to return true via a negative move with a bP', function(){
 			var position = {b2: 'bP'};
@@ -124,7 +124,7 @@
 			var res = CheckerBoardService;
 		});
 
-		/*it('expects checkForJumps to return false when there is a wP jump available', function(){
+		it('expects checkForJumps to return false when there is a bP jump available', function(){
 			var _board = new Array(8);
 			for(var i = 0; i<_board.length; i++){
 				_board[i] = new Array(8);
@@ -134,15 +134,14 @@
 			}
 			CheckerBoardService.setVirtualBoard(_board);
 
-			var position = {a1: 'wP', b2: 'bP'};
-			var color = 'wP';
-			var boardLocation = 'a1';
+			var position = {c3: 'bP', b2: 'wP'};
+			var color = 'bP';
+			var boardLocation = 'c3';
 
 			var retVal = CheckerBoardService.checkForJumps(color, boardLocation);
 			expect(retVal).to.equal(false);
 
-			var rest = CheckerBoardService;
-		});*/
+		});
 
 		it('expects checkWinLose to return win, when no white pieces exist on the board', function(){
 			var _board = new Array(8);
