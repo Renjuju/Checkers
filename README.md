@@ -1,5 +1,5 @@
 # Checkers
-[![Build Status](https://travis-ci.com/Renjuju/Checkers.svg?token=w4e2mxas5XbnReXXPHKx&branch=master)](https://travis-ci.com/Renjuju/Checkers)
+[![Build Status](https://travis-ci.org/Renjuju/Checkers.svg?branch=master)](https://travis-ci.org/Renjuju/Checkers)
 [![Issue Count](https://codeclimate.com/repos/57abd74be0053a008f000f6f/badges/c009da508b8ba4ae7104/issue_count.svg)](https://codeclimate.com/repos/57abd74be0053a008f000f6f/feed)
 [![C](https://codeclimate.com/repos/57abd74be0053a008f000f6f/badges/c009da508b8ba4ae7104/gpa.svg)](https://codeclimate.com/repos/57abd74be0053a008f000f6f/feed)
 
