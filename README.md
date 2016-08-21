@@ -44,4 +44,4 @@ Click on /coverage/[PhantomJs]/index.html
 |~~Design Document~~|7/24/16|
 |~~Team Evaluation Form [Midterm]~~|7/24/16|
 |~~Test Case Document~~|8/14/16   |
-|Final Project Submission & Team Eval|8/21/16|
+|~~Final Project Submission & Team Eval~~|8/21/16|
