@@ -3,7 +3,7 @@
 [![Issue Count](https://codeclimate.com/repos/57abd74be0053a008f000f6f/badges/c009da508b8ba4ae7104/issue_count.svg)](https://codeclimate.com/repos/57abd74be0053a008f000f6f/feed)
 [![C](https://codeclimate.com/repos/57abd74be0053a008f000f6f/badges/c009da508b8ba4ae7104/gpa.svg)](https://codeclimate.com/repos/57abd74be0053a008f000f6f/feed)
 
-#Something's broken? This will fix it 99/100 times
+# Something's broken? This will fix it 99/100 times
 ```bash
 npm install
 ```
@@ -22,17 +22,17 @@ node server.js
 ```
 The site will be up at localhost
 
-#Deployment to server
+# Deployment to server
 ```bash
 npm run deploy
 ```
 
-#Unit tests!
+# Unit tests!
 ```bash
 npm test
 ```
 
-##Code coverage
+## Code coverage
 Click on /coverage/[PhantomJs]/index.html
 
 # Due Dates
