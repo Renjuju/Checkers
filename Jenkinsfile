@@ -11,7 +11,7 @@ pipeline {
         sh 'echo "Completed"'
       }
     }
-    stage('') {
+    stage('Deploy') {
       steps {
         sh 'echo "deploy"'
       }
