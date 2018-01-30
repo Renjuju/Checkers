@@ -6,14 +6,19 @@ pipeline {
     
   }
   stages {
-    stage('Test') {
+    stage('Build') {
       steps {
         sh 'echo "Completed"'
       }
     }
+    stage('Test') {
+      steps {
+        sh 'echo "Run Tests"'
+      }
+    }
     stage('Deploy') {
       steps {
-        sh 'echo "deploy"'
+        echo 'Deploy to cloud'
       }
     }
   }
