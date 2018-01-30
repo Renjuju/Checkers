@@ -6,16 +6,14 @@ pipeline {
     
   }
   stages {
-    stage('Build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile'
-        }
-        
-      }
+    stage('Test') {
       steps {
-        pwd(tmp: true)
-        git(url: 'https://github.com/Renjuju/Checkers', branch: 'master', changelog: true, poll: true)
+        sh 'echo "Completed"'
+      }
+    }
+    stage('') {
+      steps {
+        sh 'echo "deploy"'
       }
     }
   }
