@@ -44,3 +44,6 @@ jspm_packages
 
 # Code coverage reports should not be committed ever
 tests/coverage
+
+# generated
+.nvmrc

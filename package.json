@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "Checkers game",
   "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "deploy": "fly production"
+    "deploy": "fly production",
+    "nvmrc": "echo $(node -p -e 'require(\"./package\").engines.node.split(\">=\").join(\"\")') > .nvmrc"
   },
   "repository": {
     "type": "git",
